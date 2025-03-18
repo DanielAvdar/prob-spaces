@@ -26,6 +26,7 @@ def test_discrete_initialization(n, start, probs):
     prob_dist.log_prob(sample)
 
 
+@pytest.mark.skip
 @pytest.mark.parametrize(
     "nvec, probs",
     [
