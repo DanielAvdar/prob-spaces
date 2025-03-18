@@ -22,4 +22,4 @@ coverage:
 	uv run pytest --cov=ml_orchestrator --cov-report=xml
 
 mypy:
-	uv tool run mypy . --config-file pyproject.toml
+	uv tool run mypy prob_spaces --config-file pyproject.toml

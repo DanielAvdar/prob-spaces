@@ -1,9 +1,9 @@
 [project]
-name = "my-pkg" # todo: change to your package name
+name = "prob-spaces"
 dynamic = ["version"]
 description = ""
 authors = [
-    {name = "DanielAvdar", email = "66269169+DanielAvdar@users.noreply.github.com"}, # todo: change to your name and email
+    {name = "DanielAvdar", email = "66269169+DanielAvdar@users.noreply.github.com"},
 ]
 license = {text = "MIT"}
 readme = "README.md"
@@ -12,7 +12,11 @@ requires-python = ">=3.9,<4"
 keywords = [
     "python"
 ]
-dependencies = []
+dependencies = [
+    "torchrl",
+    "numpy",
+    "gymnasium"
+]
 
 [dependency-groups]
 dev = [
@@ -27,11 +31,11 @@ dev = [
 ]
 
 [tool.hatch.build.targets.sdist]
-only-include = ["my_pkg",] # todo: change to your package name
+only-include = ["prob_spaces",]
 source = "."
 
 [tool.hatch.build.targets.wheel]
-only-include = ["my_pkg",] # todo: change to your package name
+only-include = ["prob_spaces",]
 source = "."
 
 
@@ -63,8 +67,3 @@ check_untyped_defs = true
 warn_redundant_casts = true
 warn_unused_ignores = true
 strict_optional = false
-
-
-[[tool.mypy.overrides]]
-module = "tests.*"
-ignore_errors = true
