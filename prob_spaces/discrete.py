@@ -1,10 +1,11 @@
-from typing import Optional, Sequence, Union
+from typing import Any, Optional, Sequence, Union
 
 import numpy as np
 import torch
 import torch as th
 from gymnasium import spaces
-from torchrl.modules import MaskedCategorical
+from numpy.typing import NDArray
+from torchrl.modules import MaskedCategorical  # type: ignore
 
 
 class CategoricalDist(MaskedCategorical):
@@ -17,7 +18,7 @@ class CategoricalDist(MaskedCategorical):
         indices: th.Tensor = None,
         neg_inf: float = float("-inf"),
         padding_value: Optional[int] = None,
-        start: int,
+        start: int | np.integer[Any] | NDArray[np.integer[Any]] | list[int] = 0,
     ) -> None:
         super().__init__(logits, probs, mask=mask, indices=indices, neg_inf=neg_inf, padding_value=padding_value)
         self.start = start
@@ -33,14 +34,12 @@ class CategoricalDist(MaskedCategorical):
             return sample.reshape(self.probs.shape) + th.tensor(self.start)
 
     def log_prob(self, value: torch.Tensor) -> torch.Tensor:
-        return super().log_prob(value=value - self.start)
+        return super().log_prob(value=value - self.start)  # type: ignore
 
 
 class DiscreteDist(spaces.Discrete):
-    # space: spaces.Discrete
-
     def __call__(self, prob: th.Tensor, mask: th.Tensor = None) -> MaskedCategorical:
-        probs = prob.reshape(-1, self.n)
+        probs = prob.reshape(-1, self.n)  # type: ignore
         start = self.start
         mask = mask if mask is not None else th.ones_like(probs, dtype=th.bool)
         dist = CategoricalDist(probs, mask=mask, start=start)

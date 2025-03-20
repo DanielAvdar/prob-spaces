@@ -74,15 +74,17 @@ def test_boxdist_call(
     box_dist = BoxDist(low=low, high=high, shape=shape)
     loc = th.zeros(shape, dtype=th.float32)
     scale = th.ones(shape)
-    dist_instance = box_dist(loc, scale)
-
-    dist_instance = box_dist(loc, scale)
+    dist_instance = box_dist(
+        loc.requires_grad_(True).clone(),
+        scale.requires_grad_(True).clone(),
+    )
     sample = dist_instance.sample()
     sample_np = sample.cpu().numpy()
     assert box_dist.contains(sample_np)
     log_prob = dist_instance.log_prob(sample)
-
     assert not th.any(th.isinf(log_prob))
+    assert log_prob.requires_grad
+    assert dist_instance.rsample().requires_grad
 
 
 @pytest.mark.parametrize(
@@ -126,9 +128,14 @@ def test_boxdist_np(low, high, dist):
     if dist == th.distributions.Beta:
         loc += 1
 
-    dist_instance = box_dist(loc, scale)
+    dist_instance = box_dist(
+        loc.requires_grad_(True).clone(),
+        scale.requires_grad_(True).clone(),
+    )
     sample = dist_instance.sample()
     sample_np = sample.cpu().numpy()
     assert box_dist.contains(sample_np)
     log_prob = dist_instance.log_prob(sample)
     assert not th.any(th.isinf(log_prob))
+    assert log_prob.requires_grad
+    assert dist_instance.rsample().requires_grad
