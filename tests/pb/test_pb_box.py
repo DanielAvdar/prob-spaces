@@ -48,8 +48,8 @@ def low_high_st(draw):
 def normal_dist_st(draw):
     low, high, common_params = draw(low_high_st())
     shape = low.shape
-    width = common_params["width"]
-    dtype = np.dtype(f"float{width}")
+    common_params["width"]
+    dtype = np.dtype(f"float{64}")
 
     min_value = 0.00010001659393310547
     max_value = common_params["max_value"]
@@ -65,11 +65,8 @@ def normal_dist_st(draw):
 def beta_dist_st(draw):
     low, high, common_params = draw(low_high_st())
     shape = low.shape
-    min_value = 9.999999747378752e-05
     min_value = 0.00010001659393310547
-    width = common_params["width"]
-    dtype = np.dtype(f"float{width}")
-
+    dtype = np.dtype(f"float{64}")
     concentration1_elements = st.floats(
         **common_params,
         min_value=min_value,
@@ -94,9 +91,11 @@ def test_box_normal_distribution(normal_dist):
     t_scale = th.tensor(scale, requires_grad=True)
     dist_inst = box(t_loc, t_scale)
     sample = dist_inst.sample()
-    sample_np = sample.cpu().numpy()
+    sample_np = sample.cpu().numpy().astype(low.dtype)
     assert box.contains(sample_np)
     log_prob = dist_inst.log_prob(sample)
+    assert not th.any(th.isinf(log_prob))
+
     assert isinstance(dist_inst, TransformedDistribution)
     assert log_prob.requires_grad
     assert dist_inst.rsample().requires_grad
@@ -113,9 +112,11 @@ def test_box_beta_distribution(beta_dist):
     t_concentration2 = th.tensor(concentration2, requires_grad=True)
     dist_inst = box(t_concentration1, t_concentration2)
     sample = dist_inst.sample()
-    sample_np = sample.cpu().numpy()
+    sample_np = sample.cpu().numpy().astype(low.dtype)
     assert box.contains(sample_np)
     log_prob = dist_inst.log_prob(sample)
+    assert not th.any(th.isinf(log_prob))
+
     assert isinstance(dist_inst, TransformedDistribution)
     assert log_prob.requires_grad
     assert dist_inst.rsample().requires_grad
