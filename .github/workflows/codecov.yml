@@ -2,7 +2,7 @@ name: Codecov
 on:
   pull_request:
     paths:
-      - 'pandas_pyarrow/**'
+      - 'prob_spaces/**'
       - 'tests/**'
       - '.github/workflows/codecov.yml'
   push:
