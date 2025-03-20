@@ -19,7 +19,7 @@ check:
 	uv run pre-commit run --all-files
 
 coverage:
-	uv run pytest --cov=ml_orchestrator --cov-report=xml
+	uv run pytest --cov=prob_spaces --cov-report=xml
 
 mypy:
 	uv run mypy prob_spaces --config-file pyproject.toml
