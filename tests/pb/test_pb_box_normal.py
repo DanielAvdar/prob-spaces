@@ -1,10 +1,9 @@
-import hypothesis as hp
 import hypothesis.strategies as st
 import numpy as np
 import torch as th
 from hypothesis import given
 from hypothesis.extra import numpy as npst
-from torch.distributions import TransformedDistribution
+from torch.distributions import Distribution, TransformedDistribution
 
 from prob_spaces.box import BoxDist
 
@@ -26,7 +25,8 @@ def low_high_st(draw):
     dtype = np.dtype(f"float{width}")
 
     info = np.finfo(dtype)
-    max_value = min(info.max / 2**4, 10**6)
+    max_value = min(info.max / 2**4, 10**7)
+    # max_value = info.max if width >=32 else np.finfo(np.float16).max
     common_params = dict(
         allow_nan=False,
         allow_infinity=False,
@@ -48,7 +48,6 @@ def low_high_st(draw):
 def normal_dist_st(draw):
     low, high, common_params = draw(low_high_st())
     shape = low.shape
-    common_params["width"]
     dtype = np.dtype(f"float{64}")
 
     min_value = 0.00010001659393310547
@@ -62,61 +61,69 @@ def normal_dist_st(draw):
 
 
 @st.composite
-def beta_dist_st(draw):
-    low, high, common_params = draw(low_high_st())
-    shape = low.shape
-    min_value = 0.00010001659393310547
-    dtype = np.dtype(f"float{64}")
-    concentration1_elements = st.floats(
-        **common_params,
-        min_value=min_value,
-    )
-    concentration2_elements = st.floats(
-        **common_params,
-        min_value=min_value,
-    )
-    concentration1 = draw(npst.arrays(dtype=dtype, shape=shape, elements=concentration1_elements))
-    concentration2 = draw(npst.arrays(dtype=dtype, shape=shape, elements=concentration2_elements))
-    return concentration1, concentration2, low, high
-
-
-@given(normal_dist=normal_dist_st())
-@hp.settings(
-    deadline=None,
-)
-def test_box_normal_distribution(normal_dist):
-    loc, scale, low, high = normal_dist
+def box_and_dist_st(draw) -> tuple[BoxDist, Distribution]:
+    loc, scale, low, high = draw(normal_dist_st())
     box = BoxDist(low=low, high=high, dtype=low.dtype)
     t_loc = th.tensor(loc, requires_grad=True)
     t_scale = th.tensor(scale, requires_grad=True)
     dist_inst = box(t_loc, t_scale)
+    return box, dist_inst
+
+
+@given(box_and_dist=box_and_dist_st())
+def test_box_contains_sample(box_and_dist):
+    box, dist_inst = box_and_dist
     sample = dist_inst.sample()
-    sample_np = sample.cpu().numpy().astype(low.dtype)
+    sample_np = sample.cpu().numpy().astype(box.low.dtype)
     assert box.contains(sample_np)
+
+
+@given(box_and_dist=box_and_dist_st())
+def test_box_contains_batch_sample(box_and_dist):
+    box, dist_inst = box_and_dist
+    sample = dist_inst.sample((100,))
+    sample_np = sample.cpu().numpy().astype(box.low.dtype)
+    contains = [box.contains(sample_np[i]) for i in range(100)]
+    assert all(contains)
+
+
+@given(box_and_dist=box_and_dist_st())
+def test_log_prob_valid(box_and_dist):
+    _box, dist_inst = box_and_dist
+    sample = dist_inst.sample()
     log_prob = dist_inst.log_prob(sample)
     assert not th.any(th.isinf(log_prob))
+    assert not th.any(th.isnan(log_prob))
 
+
+@given(box_and_dist=box_and_dist_st())
+def test_log_prob_np_valid(box_and_dist):
+    box, dist_inst = box_and_dist
+    sample_np = dist_inst.sample().cpu().numpy().astype(box.low.dtype)
+    log_prob_np = dist_inst.log_prob(th.tensor(sample_np))
+    assert not th.any(th.isinf(log_prob_np))
+    assert not th.any(th.isnan(log_prob_np))
+
+
+@given(box_and_dist=box_and_dist_st())
+def test_batch_log_prob_valid(box_and_dist):
+    _box, dist_inst = box_and_dist
+    log_prob_np = dist_inst.log_prob(dist_inst.sample((100,)))
+    assert not th.any(th.isinf(log_prob_np))
+    assert not th.any(th.isnan(log_prob_np))
+
+
+@given(box_and_dist=box_and_dist_st())
+def test_dist_instance_properties(box_and_dist):
+    _box, dist_inst = box_and_dist
+    log_prob = dist_inst.log_prob(dist_inst.sample())
     assert isinstance(dist_inst, TransformedDistribution)
     assert log_prob.requires_grad
     assert dist_inst.rsample().requires_grad
 
 
-@given(beta_dist=beta_dist_st())
-@hp.settings(
-    deadline=None,
-)
-def test_box_beta_distribution(beta_dist):
-    concentration1, concentration2, low, high = beta_dist
-    box = BoxDist(low=low, high=high, dtype=low.dtype)
-    t_concentration1 = th.tensor(concentration1, requires_grad=True)
-    t_concentration2 = th.tensor(concentration2, requires_grad=True)
-    dist_inst = box(t_concentration1, t_concentration2)
-    sample = dist_inst.sample()
-    sample_np = sample.cpu().numpy().astype(low.dtype)
-    assert box.contains(sample_np)
-    log_prob = dist_inst.log_prob(sample)
-    assert not th.any(th.isinf(log_prob))
-
-    assert isinstance(dist_inst, TransformedDistribution)
-    assert log_prob.requires_grad
-    assert dist_inst.rsample().requires_grad
+@given(box_and_dist=box_and_dist_st())
+def test_sample_shape(box_and_dist):
+    box, dist_inst = box_and_dist
+    sample = dist_inst.sample((100,))
+    assert sample.shape == (100,) + box.low.shape
