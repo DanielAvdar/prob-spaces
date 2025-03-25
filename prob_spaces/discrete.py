@@ -31,7 +31,7 @@ class CategoricalDist(MaskedCategorical):
         if not isinstance(self.start, np.ndarray) or sum(self.start.shape) == 1:
             return sample + self.start
         else:
-            return sample.reshape(self.probs.shape) + th.tensor(self.start)
+            return sample.reshape(self.start.shape) + th.tensor(self.start)
 
     def log_prob(self, value: torch.Tensor) -> torch.Tensor:
         return super().log_prob(value=value - self.start)  # type: ignore
@@ -49,7 +49,7 @@ class DiscreteDist(spaces.Discrete):
 
 class MultiDiscreteDist(spaces.MultiDiscrete):
     def __call__(self, prob: th.Tensor, mask: th.Tensor = None) -> MaskedCategorical:
-        probs = prob.reshape(*self.nvec.shape, -1, max(self.nvec - self.start))
+        probs = prob.reshape(*self.nvec.shape, int(np.max(self.nvec - self.start)))
         start = self.start
         mask = mask if mask is not None else th.ones_like(probs, dtype=th.bool)
         dist = CategoricalDist(probs, mask=mask, start=start)
