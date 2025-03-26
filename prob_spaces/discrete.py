@@ -32,9 +32,9 @@ class MultiDiscreteDist(spaces.MultiDiscrete):
 
     @property
     def prob_last_dim(self) -> int:
-        return int(np.max(self.nvec - self.start))
+        return int(np.max(self.nvec)) + 1
 
-    def _internal_mask(self):
+    def _internal_mask(self) -> NDArray[np.bool_]:
         prob_last_dim = self.prob_last_dim
         shape = (*self.nvec.shape, self.prob_last_dim)
         mask = np.zeros(shape=shape, dtype=np.bool)
@@ -42,7 +42,7 @@ class MultiDiscreteDist(spaces.MultiDiscrete):
         max_arrange = np.arange(start=0, stop=prob_last_dim)
         all_actions = np.zeros_like(mask, dtype=self.nvec.dtype)
         all_actions[..., :] = max_arrange
-        diffs = np.abs(self.nvec - self.start)
+        diffs = np.abs(self.nvec)
         c_diffs = np.broadcast_to(diffs[..., np.newaxis], shape)
         mask[c_diffs > all_actions] = True
 

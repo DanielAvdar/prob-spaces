@@ -49,7 +49,7 @@ def test_multidiscrete_initialization(nvec, start, probs):
     sample = prob_dist.sample()
     sample_list = sample.cpu().numpy().tolist()
     assert len(sample_list) == len(nvec)
-    diffs = np.abs(multi_discrete.start - multi_discrete.nvec)
+    diffs = np.abs(multi_discrete.nvec)
     assert np.sum(diffs) == np.sum(multi_discrete.internal_mask)
     prob_dist.log_prob(sample)
     # assert all([multi_discrete.contains(s) for s in sample_list])

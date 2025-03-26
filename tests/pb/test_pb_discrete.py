@@ -27,17 +27,17 @@ def start_nvec_st(draw):
     max_value = info.max // 2
     min_value = info.min // 2
     common_params = dict(
-        max_value=max_value,
+        # max_value=max_value,
     )
-    elements = st.integers(**common_params, min_value=1)
-    elements_distance = st.integers(**common_params, min_value=min_value)
+    elements = st.integers(**common_params, min_value=1, max_value=2000)
+    elements_distance = st.integers(**common_params, min_value=min_value, max_value=max_value)
     nvec = draw(npst.arrays(dtype=dtype, shape=shape, elements=elements))
     start = draw(npst.arrays(dtype=dtype, shape=shape, elements=elements_distance))
-    nvec = np.clip(nvec, 1, a_max=max_value * 2)
+    nvec = np.clip(nvec, 1, a_max=2000)
 
-    start = np.clip(start, nvec - 100, nvec - 1)
-    # nvec = start + nvec
-    # nvec =np.clip(nvec, 1,a_max=max_value*2)
+    # start = np.clip(start, nvec - 100, nvec - 1)
+    # # nvec = start + nvec
+    # # nvec =np.clip(nvec, 1,a_max=max_value*2)
 
     return start, nvec, common_params
 
@@ -49,7 +49,7 @@ def multi_d_st(draw):
         min_value=0,
         max_value=1,
     )
-    max_diff = np.max(np.abs(nvec - start))
+    max_diff = np.max(np.abs(nvec)) + 1
     prob_shape = (*nvec.shape, int(max_diff))
     values = draw(npst.arrays(dtype=np.float64, shape=prob_shape, elements=prob_elements))
     probs = softmax(values, 0)
@@ -67,18 +67,11 @@ def multi_d_st(draw):
     return dist, md
 
 
-@given(cat_dist=start_nvec_st())
-def test_ini(cat_dist):
-    start, nvec, common_params = cat_dist
-    assert np.all(start < nvec)
-
-
 @given(multi_d=multi_d_st())
 def test_internal_mask(multi_d):
     dist, md = multi_d
-    start = md.start
     nvec = md.nvec
-    diffs = np.abs(start - nvec)
+    diffs = np.abs(nvec)
     th_diffs = th.tensor(diffs)
     internal_mask = th.tensor(md.internal_mask)
     assert th.sum(th_diffs).item() == th.sum(internal_mask).item()

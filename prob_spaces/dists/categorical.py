@@ -4,7 +4,7 @@ import numpy as np
 import torch
 import torch as th
 from numpy._typing import NDArray
-from torchrl.modules import MaskedCategorical
+from torchrl.modules import MaskedCategorical  # type: ignore
 
 
 class CategoricalDist(MaskedCategorical):
@@ -38,12 +38,12 @@ class CategoricalDist(MaskedCategorical):
         exact_sample = self._calc_exact(sample)
         return exact_sample
 
-    def _calc_exact(self, sample):
+    def _calc_exact(self, sample: th.Tensor) -> th.Tensor:
         if not isinstance(self.start, np.ndarray) or sum(self.start.shape) == 1:
-            exact_sample = sample + self.start
+            exact_sample = sample + self.start  # type: ignore
         else:
             exact_sample = sample.reshape(self.start.shape) + th.tensor(self.start)
-        return exact_sample
+        return exact_sample  # type: ignore
 
     def log_prob(self, value: torch.Tensor) -> torch.Tensor:
         return super().log_prob(value=value - self.start)  # type: ignore
