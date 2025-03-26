@@ -1,3 +1,4 @@
+import numpy as np
 import pytest
 import torch as th
 
@@ -26,13 +27,13 @@ def test_discrete_initialization(n, start, probs):
     prob_dist.log_prob(sample)
 
 
-@pytest.mark.skip
+# @pytest.mark.skip
 @pytest.mark.parametrize(
     "nvec, probs",
     [
         (
             [2, 3, 4],
-            [[[0.1, 0.1, 0.4, 0.2, 0.2], [0.1, 0.1, 0.4, 0.2, 0.2], [0.1, 0.1, 0.4, 0.2, 0.2]]] * 3,
+            [[[0.1, 0.1, 0.4, 0.2, 0.2], [0.1, 0.1, 0.4, 0.2, 0.2], [0.1, 0.1, 0.4, 0.2, 0.2]]],
         ),  # Example with incorrect probs size
         # ([2, 3, 4], [[0.5, 0.5], [0.3, 0.3, 0.4], [0.2, 0.2, 0.3, 0.3]]),  # Correct probs size
         # ([3, 2,6], [[0.3, 0.3, 0.4], [0.6, 0.4]]),  # Another correct probs size
@@ -40,7 +41,7 @@ def test_discrete_initialization(n, start, probs):
 )
 @pytest.mark.parametrize(
     "start",
-    [[0, 1, -1], [0, 0, -0]],
+    [[0, 1, -1], [-3, 0, -0]],
 )
 def test_multidiscrete_initialization(nvec, start, probs):
     multi_discrete = MultiDiscreteDist(nvec=nvec, start=start)
@@ -48,4 +49,8 @@ def test_multidiscrete_initialization(nvec, start, probs):
     sample = prob_dist.sample()
     sample_list = sample.cpu().numpy().tolist()
     assert len(sample_list) == len(nvec)
+    diffs = np.abs(multi_discrete.start - multi_discrete.nvec)
+    assert np.sum(diffs) == np.sum(multi_discrete.internal_mask)
     prob_dist.log_prob(sample)
+    # assert all([multi_discrete.contains(s) for s in sample_list])
+    assert multi_discrete.contains(sample.cpu().numpy())

@@ -1,40 +1,12 @@
-from typing import Any, Optional, Sequence, Union
+from typing import Any
 
 import numpy as np
-import torch
 import torch as th
 from gymnasium import spaces
 from numpy.typing import NDArray
 from torchrl.modules import MaskedCategorical  # type: ignore
 
-
-class CategoricalDist(MaskedCategorical):
-    def __init__(
-        self,
-        logits: Optional[th.Tensor] = None,
-        probs: Optional[th.Tensor] = None,
-        *,
-        mask: th.Tensor = None,
-        indices: th.Tensor = None,
-        neg_inf: float = float("-inf"),
-        padding_value: Optional[int] = None,
-        start: int | np.integer[Any] | NDArray[np.integer[Any]] | list[int] = 0,
-    ) -> None:
-        super().__init__(logits, probs, mask=mask, indices=indices, neg_inf=neg_inf, padding_value=padding_value)
-        self.start = start
-
-    def sample(
-        self,
-        sample_shape: Optional[Union[th.Size, Sequence[int]]] = None,
-    ) -> th.Tensor:
-        sample = super().sample(sample_shape)
-        if not isinstance(self.start, np.ndarray) or sum(self.start.shape) == 1:
-            return sample + self.start
-        else:
-            return sample.reshape(self.start.shape) + th.tensor(self.start)
-
-    def log_prob(self, value: torch.Tensor) -> torch.Tensor:
-        return super().log_prob(value=value - self.start)  # type: ignore
+from prob_spaces.dists.categorical import CategoricalDist
 
 
 class DiscreteDist(spaces.Discrete):
@@ -48,9 +20,38 @@ class DiscreteDist(spaces.Discrete):
 
 
 class MultiDiscreteDist(spaces.MultiDiscrete):
+    def __init__(
+        self,
+        nvec: NDArray[np.integer[Any]] | list[int],
+        dtype: str | type[np.integer[Any]] = np.int64,
+        seed: int | np.random.Generator | None = None,
+        start: NDArray[np.integer[Any]] | list[int] | None = None,
+    ):
+        super().__init__(nvec, dtype, seed, start)
+        self.internal_mask = self._internal_mask()
+
+    @property
+    def prob_last_dim(self) -> int:
+        return int(np.max(self.nvec - self.start))
+
+    def _internal_mask(self):
+        prob_last_dim = self.prob_last_dim
+        shape = (*self.nvec.shape, self.prob_last_dim)
+        mask = np.zeros(shape=shape, dtype=np.bool)
+        max_arrange = np.arange(start=prob_last_dim - 1, stop=-1, step=-1)
+        max_arrange = np.arange(start=0, stop=prob_last_dim)
+        all_actions = np.zeros_like(mask, dtype=self.nvec.dtype)
+        all_actions[..., :] = max_arrange
+        diffs = np.abs(self.nvec - self.start)
+        c_diffs = np.broadcast_to(diffs[..., np.newaxis], shape)
+        mask[c_diffs > all_actions] = True
+
+        return mask
+
     def __call__(self, prob: th.Tensor, mask: th.Tensor = None) -> MaskedCategorical:
-        probs = prob.reshape(*self.nvec.shape, int(np.max(self.nvec - self.start)))
+        probs = prob.reshape(*self.nvec.shape, self.prob_last_dim)
         start = self.start
         mask = mask if mask is not None else th.ones_like(probs, dtype=th.bool)
+        mask = th.logical_and(mask, th.tensor(self.internal_mask, dtype=th.bool))
         dist = CategoricalDist(probs, mask=mask, start=start)
         return dist

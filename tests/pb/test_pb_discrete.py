@@ -64,7 +64,7 @@ def multi_d_st(draw):
 
     md = MultiDiscreteDist(nvec=nvec, start=start, dtype=nvec.dtype)
     dist = md(torch_probs, mask=None)
-    return dist
+    return dist, md
 
 
 @given(cat_dist=start_nvec_st())
@@ -74,6 +74,26 @@ def test_ini(cat_dist):
 
 
 @given(multi_d=multi_d_st())
+def test_internal_mask(multi_d):
+    dist, md = multi_d
+    start = md.start
+    nvec = md.nvec
+    diffs = np.abs(start - nvec)
+    th_diffs = th.tensor(diffs)
+    internal_mask = th.tensor(md.internal_mask)
+    assert th.sum(th_diffs).item() == th.sum(internal_mask).item()
+
+
+@given(multi_d=multi_d_st())
+def test_contains(multi_d):
+    dist, md = multi_d
+    sample = dist.sample()
+    np_sample = sample.cpu().numpy()
+    assert md.contains(np_sample)
+
+
+@given(multi_d=multi_d_st())
 def test_cat_dist(multi_d):
-    sample = multi_d.sample()
-    multi_d.log_prob(sample)
+    dist, md = multi_d
+    sample = dist.sample()
+    dist.log_prob(sample)
