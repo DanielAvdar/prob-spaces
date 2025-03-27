@@ -33,11 +33,6 @@ def start_nvec_st(draw):
     elements_distance = st.integers(**common_params, min_value=min_value, max_value=max_value)
     nvec = draw(npst.arrays(dtype=dtype, shape=shape, elements=elements))
     start = draw(npst.arrays(dtype=dtype, shape=shape, elements=elements_distance))
-    nvec = np.clip(nvec, 1, a_max=2000)
-
-    # start = np.clip(start, nvec - 100, nvec - 1)
-    # # nvec = start + nvec
-    # # nvec =np.clip(nvec, 1,a_max=max_value*2)
 
     return start, nvec, common_params
 
@@ -60,7 +55,7 @@ def multi_d_st(draw):
             shape=prob_shape,
         )
     )
-    torch_probs = th.tensor(probs)
+    torch_probs = th.tensor(probs, requires_grad=True)
 
     md = MultiDiscreteDist(nvec=nvec, start=start, dtype=nvec.dtype)
     dist = md(torch_probs, mask=None)
@@ -70,11 +65,9 @@ def multi_d_st(draw):
 @given(multi_d=multi_d_st())
 def test_internal_mask(multi_d):
     dist, md = multi_d
-    nvec = md.nvec
-    diffs = np.abs(nvec)
-    th_diffs = th.tensor(diffs)
+    th_nvec = th.tensor(md.nvec)
     internal_mask = th.tensor(md.internal_mask)
-    assert th.sum(th_diffs).item() == th.sum(internal_mask).item()
+    assert th.sum(th_nvec).item() == th.sum(internal_mask).item()
 
 
 @given(multi_d=multi_d_st())
@@ -86,7 +79,11 @@ def test_contains(multi_d):
 
 
 @given(multi_d=multi_d_st())
-def test_cat_dist(multi_d):
+def test_log_prob(multi_d):
     dist, md = multi_d
-    sample = dist.sample()
-    dist.log_prob(sample)
+    sample = dist.sample((1000,))
+    log_prob = dist.log_prob(sample)
+    assert th.all(log_prob <= 0)
+    assert not th.any(th.isnan(log_prob))
+    assert not (th.any(th.isinf(log_prob)) or th.any(th.isneginf(log_prob)))
+    assert log_prob.requires_grad

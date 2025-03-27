@@ -18,9 +18,9 @@ from prob_spaces.discrete import DiscreteDist, MultiDiscreteDist
     "start",
     [1, 2, -22, 0, 111],
 )
-def test_discrete_initialization(n, start, probs):
+def test_discrete_initialization(n, start, probs, device):
     discrete = DiscreteDist(n=n, start=start)
-    prob_dist = discrete(prob=th.tensor(probs))
+    prob_dist = discrete(prob=th.tensor(probs, device=device))
     sample = prob_dist.sample()
     sample_list = sample.cpu().numpy().tolist()
     assert all([discrete.contains(s) for s in sample_list])
@@ -43,9 +43,9 @@ def test_discrete_initialization(n, start, probs):
     "start",
     [[0, 1, -1], [-3, 0, -0]],
 )
-def test_multidiscrete_initialization(nvec, start, probs):
+def test_multidiscrete_initialization(nvec, start, probs, device):
     multi_discrete = MultiDiscreteDist(nvec=nvec, start=start)
-    prob_dist = multi_discrete(prob=th.tensor(probs, dtype=th.float32))
+    prob_dist = multi_discrete(prob=th.tensor(probs, dtype=th.float32, device=device))
     sample = prob_dist.sample()
     sample_list = sample.cpu().numpy().tolist()
     assert len(sample_list) == len(nvec)

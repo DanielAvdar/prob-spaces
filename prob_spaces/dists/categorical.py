@@ -22,12 +22,16 @@ class CategoricalDist(MaskedCategorical):
         super().__init__(logits, probs, mask=mask, indices=indices, neg_inf=neg_inf, padding_value=padding_value)
         self.start = start
 
+    @property
+    def th_start(self) -> th.Tensor:
+        return th.tensor(self.start, device=self.probs.device)
+
     def sample(
         self,
         sample_shape: Optional[Union[th.Size, Sequence[int]]] = None,
     ) -> th.Tensor:
         sample = super().sample(sample_shape)
-        exact_sample = self._calc_exact(sample)
+        exact_sample = self._calc_exact(sample, sample_shape)
         return exact_sample
 
     def rsample(
@@ -35,15 +39,20 @@ class CategoricalDist(MaskedCategorical):
         sample_shape: Optional[Union[th.Size, Sequence[int]]] = None,
     ) -> th.Tensor:
         sample = super().rsample(sample_shape)
-        exact_sample = self._calc_exact(sample)
+        exact_sample = self._calc_exact(sample, sample_shape)
         return exact_sample
 
-    def _calc_exact(self, sample: th.Tensor) -> th.Tensor:
+    def _calc_exact(
+        self,
+        sample: th.Tensor,
+        sample_shape: Optional[Union[th.Size, Sequence[int]]],
+    ) -> th.Tensor:
         if not isinstance(self.start, np.ndarray) or sum(self.start.shape) == 1:
             exact_sample = sample + self.start  # type: ignore
         else:
-            exact_sample = sample.reshape(self.start.shape) + th.tensor(self.start)
+            shape = self.start.shape if sample_shape is None else (*sample_shape, *self.start.shape)
+            exact_sample = sample.reshape(shape) + self.th_start
         return exact_sample  # type: ignore
 
     def log_prob(self, value: torch.Tensor) -> torch.Tensor:
-        return super().log_prob(value=value - self.start)  # type: ignore
+        return super().log_prob(value=value - self.th_start)

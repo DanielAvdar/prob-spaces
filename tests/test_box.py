@@ -70,10 +70,11 @@ def test_boxdist_call(
     low,
     high,
     shape,
+    device,
 ):
     box_dist = BoxDist(low=low, high=high, shape=shape)
-    loc = th.zeros(shape, dtype=th.float32)
-    scale = th.ones(shape)
+    loc = th.zeros(shape, dtype=th.float32, device=device)
+    scale = th.ones(shape, device=device)
     dist_instance = box_dist(
         loc.requires_grad_(True).clone(),
         scale.requires_grad_(True).clone(),

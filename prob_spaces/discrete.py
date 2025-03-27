@@ -13,7 +13,7 @@ class DiscreteDist(spaces.Discrete):
     def __call__(self, prob: th.Tensor, mask: th.Tensor = None) -> MaskedCategorical:
         probs = prob.reshape(-1, self.n)  # type: ignore
         start = self.start
-        mask = mask if mask is not None else th.ones_like(probs, dtype=th.bool)
+        mask = mask if mask is not None else th.ones_like(probs, dtype=th.bool, device=probs.device)
         dist = CategoricalDist(probs, mask=mask, start=start)
 
         return dist
@@ -38,7 +38,6 @@ class MultiDiscreteDist(spaces.MultiDiscrete):
         prob_last_dim = self.prob_last_dim
         shape = (*self.nvec.shape, self.prob_last_dim)
         mask = np.zeros(shape=shape, dtype=np.bool)
-        max_arrange = np.arange(start=prob_last_dim - 1, stop=-1, step=-1)
         max_arrange = np.arange(start=0, stop=prob_last_dim)
         all_actions = np.zeros_like(mask, dtype=self.nvec.dtype)
         all_actions[..., :] = max_arrange
@@ -51,7 +50,7 @@ class MultiDiscreteDist(spaces.MultiDiscrete):
     def __call__(self, prob: th.Tensor, mask: th.Tensor = None) -> MaskedCategorical:
         probs = prob.reshape(*self.nvec.shape, self.prob_last_dim)
         start = self.start
-        mask = mask if mask is not None else th.ones_like(probs, dtype=th.bool)
-        mask = th.logical_and(mask, th.tensor(self.internal_mask, dtype=th.bool))
+        mask = mask if mask is not None else th.ones_like(probs, dtype=th.bool, device=probs.device)
+        mask = th.logical_and(mask, th.tensor(self.internal_mask, dtype=th.bool, device=probs.device))
         dist = CategoricalDist(probs, mask=mask, start=start)
         return dist

@@ -19,18 +19,30 @@ class BoxDist(spaces.Box):
         dist: None | Type[th.distributions.Distribution] = None,
     ):
         super().__init__(low, high, shape, dtype, seed)
-        t_low = th.tensor(low)
-        t_high = th.tensor(high)
+        # t_low = th.tensor(low)
+        # t_high = th.tensor(high)
+        # range_value = t_high - t_low
+        # offset = t_low
+        self.base_dist = dist or th.distributions.Normal
+        # transforms: list = []
+        # if self.base_dist != th.distributions.Beta:
+        #     transforms.append(SigmoidTransform())
+        # transforms.append(AffineTransform(loc=offset, scale=range_value, event_dim=1))
+        # self.transforms = transforms
+
+    def transforms(self, device: th.device) -> list:
+        t_low = th.tensor(self.low, device=device)
+        t_high = th.tensor(self.high, device=device)
         range_value = t_high - t_low
         offset = t_low
-        self.base_dist = dist or th.distributions.Normal
         transforms: list = []
         if self.base_dist != th.distributions.Beta:
             transforms.append(SigmoidTransform())
         transforms.append(AffineTransform(loc=offset, scale=range_value, event_dim=1))
-        self.transforms = transforms
+        return transforms
 
     def __call__(self, loc: th.Tensor, scale: th.Tensor) -> th.distributions.Distribution:
         dist = self.base_dist(loc, scale, validate_args=True)  # type: ignore
-        transformed_dist = TransformedDistribution(dist, self.transforms, validate_args=True)
+        transforms = self.transforms(loc.device)
+        transformed_dist = TransformedDistribution(dist, transforms, validate_args=True)
         return transformed_dist
