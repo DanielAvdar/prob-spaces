@@ -1,18 +1,31 @@
 [project]
-name = "my-pkg" # todo: change to your package name
+name = "prob-spaces"
 dynamic = ["version"]
 description = ""
 authors = [
-    {name = "DanielAvdar", email = "66269169+DanielAvdar@users.noreply.github.com"}, # todo: change to your name and email
+    { name = "DanielAvdar", email = "66269169+DanielAvdar@users.noreply.github.com" },
 ]
-license = {text = "MIT"}
+license = { text = "MIT" }
 readme = "README.md"
-requires-python = ">=3.9,<4"
+requires-python = ">=3.10,<4"
 
 keywords = [
     "python"
 ]
-dependencies = []
+dependencies = [
+    "torchrl",
+    "numpy",
+    "gymnasium",
+    "torch",
+]
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cu124", marker = "platform_system != 'Darwin'"},
+]
 
 [dependency-groups]
 dev = [
@@ -24,14 +37,17 @@ dev = [
     "mypy==1.13.0",
     "pytest-parametrization>=2022",
     "ruff>=0.8.2",
+    "matplotlib",
+    "jupyterlab>=3.2.0",
+    "scipy"
 ]
 
 [tool.hatch.build.targets.sdist]
-only-include = ["my_pkg",] # todo: change to your package name
+only-include = ["prob_spaces", ]
 source = "."
 
 [tool.hatch.build.targets.wheel]
-only-include = ["my_pkg",] # todo: change to your package name
+only-include = ["prob_spaces", ]
 source = "."
 
 
@@ -47,10 +63,10 @@ source = "uv-dynamic-versioning"
 
 [tool.ruff]
 line-length = 120
-include = ["pyproject.toml", "tests/**",]
+include = ["pyproject.toml", "tests/**", ]
 
 [tool.ruff.lint]
-select = ["F", "B", "I", "F", "W", "E","A","N"]
+select = ["F", "B", "I", "F", "W", "E", "A", "N"]
 
 fixable = ["ALL"]
 
@@ -63,8 +79,3 @@ check_untyped_defs = true
 warn_redundant_casts = true
 warn_unused_ignores = true
 strict_optional = false
-
-
-[[tool.mypy.overrides]]
-module = "tests.*"
-ignore_errors = true
