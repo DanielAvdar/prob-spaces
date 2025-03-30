@@ -19,16 +19,7 @@ class BoxDist(spaces.Box):
         dist: None | Type[th.distributions.Distribution] = None,
     ):
         super().__init__(low, high, shape, dtype, seed)
-        # t_low = th.tensor(low)
-        # t_high = th.tensor(high)
-        # range_value = t_high - t_low
-        # offset = t_low
         self.base_dist = dist or th.distributions.Normal
-        # transforms: list = []
-        # if self.base_dist != th.distributions.Beta:
-        #     transforms.append(SigmoidTransform())
-        # transforms.append(AffineTransform(loc=offset, scale=range_value, event_dim=1))
-        # self.transforms = transforms
 
     def transforms(self, device: th.device) -> list:
         t_low = th.tensor(self.low, device=device)
@@ -46,3 +37,13 @@ class BoxDist(spaces.Box):
         transforms = self.transforms(loc.device)
         transformed_dist = TransformedDistribution(dist, transforms, validate_args=True)
         return transformed_dist
+
+    @classmethod
+    def from_space(cls, space: spaces.Box) -> "BoxDist":
+        if not isinstance(space, spaces.Box):
+            raise TypeError(f"Expected a Box space, got {type(space)}")
+        low = space.low
+        high = space.high
+        dtype = space.dtype
+        shape = space.shape
+        return cls(low=low, high=high, shape=shape, dtype=dtype)  # type: ignore

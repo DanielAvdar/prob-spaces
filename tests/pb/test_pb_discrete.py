@@ -5,7 +5,7 @@ from hypothesis import given
 from hypothesis.extra import numpy as npst
 from scipy.special import softmax
 
-from prob_spaces.discrete import MultiDiscreteDist
+from prob_spaces.multi_discrete import MultiDiscreteDist
 
 
 @st.composite
