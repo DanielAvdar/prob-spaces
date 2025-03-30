@@ -29,7 +29,7 @@ from prob_spaces.multi_discrete import MultiDiscreteDist
         "CliffWalking-v0",
         "Taxi-v3",
         "tabular/Blackjack-v0",
-        "tabular/CliffWalking-v0",
+        # "tabular/CliffWalking-v0", todo support box int types
         # "Reacher-v2",
         "Reacher-v4",
         "Reacher-v5",
