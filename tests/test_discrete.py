@@ -1,7 +1,5 @@
-import numpy as np
 import pytest
 import torch as th
-from gymnasium.spaces import Discrete
 
 from prob_spaces.discrete import DiscreteDist
 

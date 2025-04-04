@@ -1,7 +1,6 @@
 import numpy as np
 import pytest
 import torch as th
-from gymnasium.spaces import MultiDiscrete
 
 from prob_spaces.multi_discrete import MultiDiscreteDist
 
@@ -105,5 +104,3 @@ def test_multidiscrete_initialization(nvec, start, probs, mask, device):
     assert not th.any(th.isneginf(log_probs))
     assert not th.any(th.isnan(log_probs))
     assert log_probs.requires_grad
-
-
