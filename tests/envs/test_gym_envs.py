@@ -3,6 +3,7 @@ import pytest
 import torch
 
 from prob_spaces.box import BoxDist
+from prob_spaces.converter import convert_to_prob_space
 from prob_spaces.discrete import DiscreteDist
 from prob_spaces.multi_discrete import MultiDiscreteDist
 
@@ -81,18 +82,19 @@ def test_gym_envs(fixture):
     env = fixture
     env.reset()
     action_space = env.action_space
+    space_dist = convert_to_prob_space(action_space)
     if isinstance(action_space, gym.spaces.MultiDiscrete):
-        space_dist = MultiDiscreteDist.from_space(action_space)
+        assert isinstance(space_dist, MultiDiscreteDist)
         probs = torch.ones(space_dist.prob_last_dim)
         probs = torch.softmax(probs, -1)
         dist = space_dist(probs)
     elif isinstance(action_space, gym.spaces.Discrete):
-        space_dist = DiscreteDist.from_space(action_space)
+        assert isinstance(space_dist, DiscreteDist)
         probs = torch.ones(space_dist.n)
         probs = torch.softmax(probs, -1)
         dist = space_dist(probs)
     elif isinstance(action_space, gym.spaces.Box):
-        space_dist = BoxDist.from_space(action_space)
+        assert isinstance(space_dist, BoxDist)
         loc = torch.rand(space_dist.shape)
         scale = torch.rand(space_dist.shape)
         dist = space_dist(loc, scale)

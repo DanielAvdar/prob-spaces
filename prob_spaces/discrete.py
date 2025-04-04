@@ -7,12 +7,10 @@ from prob_spaces.dists.categorical import CategoricalDist
 
 class DiscreteDist(spaces.Discrete):
     def __call__(self, prob: th.Tensor, mask: th.Tensor = None) -> MaskedCategorical:
-        # probs = prob.reshape(-1, self.n)  # type: ignore
         probs = prob.reshape(self.n)  # type: ignore
         start = self.start
         mask = mask if mask is not None else th.ones_like(probs, dtype=th.bool, device=probs.device)
         dist = CategoricalDist(probs, mask=mask, start=start)
-
         return dist
 
     @classmethod

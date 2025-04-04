@@ -45,7 +45,14 @@ dev = [
     "scipy",
 #    "box2d-py>=2.3.8",
     "gymnasium[all]",
+    "pygame",
+    "jax",
     "shimmy[gym-v26]",
+    "pettingzoo",
+    "chess",
+
+    "luxai-s3",
+#    "multi-agent-ale-py"
 ]
 
 [tool.hatch.build.targets.sdist]
