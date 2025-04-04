@@ -48,7 +48,4 @@ class MultiDiscreteDist(spaces.MultiDiscrete):
     @classmethod
     def from_space(cls, space: spaces.MultiDiscrete) -> "MultiDiscreteDist":
         """Convert a gymnasium space to a MultiDiscreteDist."""
-        if isinstance(space, spaces.MultiDiscrete):
-            return cls(nvec=space.nvec, dtype=space.dtype, start=space.start)  # type: ignore
-        else:
-            raise ValueError(f"Unsupported space type: {type(space)}")
+        return cls(nvec=space.nvec, dtype=space.dtype, start=space.start)

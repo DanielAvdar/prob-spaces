@@ -5,7 +5,7 @@ from prob_spaces.discrete import DiscreteDist
 from prob_spaces.multi_discrete import MultiDiscreteDist
 
 Spaces = gym.spaces.Box | gym.spaces.Discrete | gym.spaces.MultiDiscrete
-DistSpaces = BoxDist | DiscreteDist | MultiDiscreteDist
+DistSpaces = BoxDist | DiscreteDist | MultiDiscreteDist | None
 
 
 def convert_to_prob_space(action_space: Spaces) -> DistSpaces:
@@ -18,6 +18,6 @@ def convert_to_prob_space(action_space: Spaces) -> DistSpaces:
     elif isinstance(action_space, gym.spaces.Box):
         space_dist = BoxDist.from_space(action_space)  # type: ignore
     else:
-        raise TypeError(f"Unsupported action space type: {type(action_space)}")
+        raise NotImplementedError(f"Action space {type(action_space)} not supported")
 
     return space_dist

@@ -40,8 +40,6 @@ class BoxDist(spaces.Box):
 
     @classmethod
     def from_space(cls, space: spaces.Box) -> "BoxDist":
-        if not isinstance(space, spaces.Box):
-            raise TypeError(f"Expected a Box space, got {type(space)}")
         low = space.low
         high = space.high
         dtype = space.dtype
