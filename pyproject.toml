@@ -52,7 +52,10 @@ dev = [
     "chess",
 
     "luxai-s3",
-#    "multi-agent-ale-py"
+    "sybil[pytest]",
+    "sphinx>=8.2.0; python_version >= '3.11'",
+    "sphinx>=7.0.0; python_version < '3.11'",
+    "sphinx-rtd-theme>=3.0.2",
 ]
 
 [tool.hatch.build.targets.sdist]

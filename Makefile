@@ -23,3 +23,6 @@ coverage:
 
 mypy:
 	uv run mypy prob_spaces --config-file pyproject.toml
+
+doc:
+	uv run sphinx-build -M html docs/source docs/build/
