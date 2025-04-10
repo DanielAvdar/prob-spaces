@@ -13,7 +13,6 @@ keywords = [
     "python"
 ]
 dependencies = [
-    "torchrl",
     "numpy",
     "gymnasium",
     "torch",

@@ -1,8 +1,7 @@
 import torch as th
 from gymnasium import spaces
-from torchrl.modules import MaskedCategorical  # type: ignore
 
-from prob_spaces.dists.categorical import CategoricalDist
+from prob_spaces.dists.categorical import CategoricalDist, MaskedCategorical
 
 
 class DiscreteDist(spaces.Discrete):

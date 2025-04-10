@@ -4,9 +4,8 @@ import numpy as np
 import torch as th
 from gymnasium import spaces
 from numpy.typing import NDArray
-from torchrl.modules import MaskedCategorical  # type: ignore
 
-from prob_spaces.dists.categorical import CategoricalDist
+from prob_spaces.dists.categorical import CategoricalDist, MaskedCategorical
 
 
 class MultiDiscreteDist(spaces.MultiDiscrete):
