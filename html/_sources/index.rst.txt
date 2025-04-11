@@ -1,16 +1,40 @@
-.. prob-spaces documentation master file, created by
-   sphinx-quickstart on Wed Apr  9 14:51:09 2025.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. prob-spaces documentation master file
 
-prob-spaces documentation
-=========================
+prob-spaces: Probability Distributions for Gymnasium Spaces
+===========================================================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+**prob-spaces** is a Python package that allows you to create probability distributions from Gymnasium spaces.
+It provides a simple and intuitive interface for working with various probability spaces in reinforcement learning
+environments.
 
+.. image:: https://img.shields.io/pypi/v/prob-spaces.svg
+   :target: https://pypi.org/project/prob-spaces/
+   :alt: PyPI version
+
+.. image:: https://img.shields.io/pypi/pyversions/prob-spaces.svg
+   :target: https://pypi.org/project/prob-spaces/
+   :alt: Python versions
+
+.. image:: https://img.shields.io/badge/License-MIT-blue.svg
+   :target: https://opensource.org/licenses/MIT
+   :alt: License
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+
+   introduction
+   installation
+   api
+   modules/discrete
+   modules/multi_discrete
+   modules/box
+   modules/dict
+   modules/converter
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
