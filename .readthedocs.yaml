@@ -13,7 +13,7 @@ formats: all
 
 # Set the OS, Python version, and other tools you might need
 build:
-  os: ubuntu-latest
+  os: ubuntu-lts-latest
   tools:
     python: "3.12"
   jobs:
