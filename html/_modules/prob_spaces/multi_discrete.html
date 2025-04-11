@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>prob_spaces.multi_discrete &mdash; prob-spaces 0.0.0.post1.dev0+b522949 documentation</title>
+  <title>prob_spaces.multi_discrete &mdash; prob-spaces 0.0.0.post1.dev0+c425cf8 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=40a981a0"></script>
+      <script src="../../_static/documentation_options.js?v=c9d044cd"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -122,6 +122,8 @@
 
         <span class="k">return</span> <span class="n">mask</span>
 
+<div class="viewcode-block" id="MultiDiscreteDist.__call__">
+<a class="viewcode-back" href="../../modules/multi_discrete.html#prob_spaces.MultiDiscreteDist.__call__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prob</span><span class="p">:</span> <span class="n">th</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">mask</span><span class="p">:</span> <span class="n">th</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MaskedCategorical</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Applies a transformation to the input probability tensor and optional mask, creating</span>
@@ -145,10 +147,11 @@
         <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span> <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">th</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">th</span><span class="o">.</span><span class="n">bool</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">probs</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
         <span class="n">mask</span> <span class="o">=</span> <span class="n">th</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">th</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">internal_mask</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">th</span><span class="o">.</span><span class="n">bool</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">probs</span><span class="o">.</span><span class="n">device</span><span class="p">))</span>
         <span class="n">dist</span> <span class="o">=</span> <span class="n">CategoricalDist</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">dist</span>
+        <span class="k">return</span> <span class="n">dist</span></div>
+
 
 <div class="viewcode-block" id="MultiDiscreteDist.from_space">
-<a class="viewcode-back" href="../../modules/multi_discrete.html#prob_spaces.MultiDiscreteDist.from_space">[docs]</a>
+<a class="viewcode-back" href="../../api.html#prob_spaces.MultiDiscreteDist.from_space">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_space</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">space</span><span class="p">:</span> <span class="n">spaces</span><span class="o">.</span><span class="n">MultiDiscrete</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;MultiDiscreteDist&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert a gymnasium space to a MultiDiscreteDist.&quot;&quot;&quot;</span>

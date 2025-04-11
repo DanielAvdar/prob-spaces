@@ -16,7 +16,7 @@ API Reference
 ------------
 
 .. autoclass:: prob_spaces.multi_discrete.MultiDiscreteDist
-   :members:
+   :members: __call__
    :undoc-members:
    :show-inheritance:
 
