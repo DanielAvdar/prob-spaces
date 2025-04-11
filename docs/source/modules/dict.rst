@@ -20,11 +20,11 @@ API Reference
    :show-inheritance:
 
 Usage Examples
--------------
+--------------
 
 Basic usage:
 
-
+.. code-block:: python
 
     import torch as th
     import gymnasium as gym

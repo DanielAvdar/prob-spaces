@@ -21,14 +21,14 @@ API Reference
    :show-inheritance:
 
 Key Attributes
--------------
+--------------
 
 * ``nvec``: Array of integers representing the number of values for each discrete variable
 * ``start``: Optional starting indices for each variable
 * ``internal_mask``: Automatically generated mask to ensure valid actions
 
 Usage Examples
--------------
+--------------
 
 Basic usage:
 

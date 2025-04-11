@@ -41,11 +41,12 @@ environments.
    :maxdepth: 1
    :caption: Usage:
 
+   ./modules/converter
    ./modules/discrete
    ./modules/multi_discrete
    ./modules/box
    ./modules/dict
-   ./modules/converter
+   ./modules/tuple
 
 .. toctree::
    :maxdepth: 1
