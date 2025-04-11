@@ -13,11 +13,10 @@ formats: all
 
 # Set the OS, Python version, and other tools you might need
 build:
-  os: ubuntu-24.04
+  os: ubuntu-latest
   tools:
     python: "3.12"
   jobs:
     post_install:
-      - apt-get install swig
       - pip install uv
       - UV_PROJECT_ENVIRONMENT=$READTHEDOCS_VIRTUALENV_PATH uv sync --all-extras --group docs --link-mode=copy --frozen
