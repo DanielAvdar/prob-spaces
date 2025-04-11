@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>prob_spaces.box &mdash; prob-spaces 0.0.0.post1.dev0+d307e5d documentation</title>
+  <title>prob_spaces.box &mdash; prob-spaces 0.0.0.post1.dev0+b522949 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=7e416c5d"></script>
+      <script src="../../_static/documentation_options.js?v=40a981a0"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -39,16 +39,22 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Usage:</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../modules/discrete.html">Discrete Space</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules/multi_discrete.html">MultiDiscrete Space</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules/box.html">Box Space</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules/dict.html">Dict Space</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules/converter.html">Space Converter</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
 </ul>
 
         </div>
@@ -116,6 +122,17 @@
 
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loc</span><span class="p">:</span> <span class="n">th</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">th</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">th</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">Distribution</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates a transformed probability distribution based on the input location and scale</span>
+<span class="sd">        parameters. The method constructs a base distribution, applies a sequence of</span>
+<span class="sd">        transformations to it, and returns the resulting transformed distribution. This</span>
+<span class="sd">        allows for creating flexible and expressive probability distributions.</span>
+
+<span class="sd">        :param loc: A tensor specifying the location parameters for the base distribution.</span>
+<span class="sd">        :param scale: A tensor specifying the scale parameters for the base distribution.</span>
+<span class="sd">        :return: A transformed distribution object derived from the specified base distribution</span>
+<span class="sd">            and transformations.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_dist</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">validate_args</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
         <span class="n">transforms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transforms</span><span class="p">(</span><span class="n">loc</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
         <span class="n">transformed_dist</span> <span class="o">=</span> <span class="n">TransformedDistribution</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">transforms</span><span class="p">,</span> <span class="n">validate_args</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

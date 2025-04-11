@@ -19,18 +19,40 @@ environments.
    :target: https://opensource.org/licenses/MIT
    :alt: License
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+.. image:: https://img.shields.io/badge/ubuntu-blue?logo=ubuntu
+   :alt: Ubuntu
 
-   introduction
-   installation
-   api
-   modules/discrete
-   modules/multi_discrete
-   modules/box
-   modules/dict
-   modules/converter
+.. image:: https://img.shields.io/badge/ubuntu-blue?logo=windows
+   :alt: Windows
+
+.. image:: https://img.shields.io/badge/ubuntu-blue?logo=apple
+   :alt: MacOS
+
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Introduction:
+
+   ./introduction
+   ./installation
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Usage:
+
+   ./modules/discrete
+   ./modules/multi_discrete
+   ./modules/box
+   ./modules/dict
+   ./modules/converter
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API Reference:
+
+   ./api
+
 
 Indices and tables
 ==================

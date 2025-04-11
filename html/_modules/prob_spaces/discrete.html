@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>prob_spaces.discrete &mdash; prob-spaces 0.0.0.post1.dev0+d307e5d documentation</title>
+  <title>prob_spaces.discrete &mdash; prob-spaces 0.0.0.post1.dev0+b522949 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=7e416c5d"></script>
+      <script src="../../_static/documentation_options.js?v=40a981a0"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -39,16 +39,22 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Usage:</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../modules/discrete.html">Discrete Space</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules/multi_discrete.html">MultiDiscrete Space</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules/box.html">Box Space</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules/dict.html">Dict Space</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules/converter.html">Space Converter</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
 </ul>
 
         </div>
@@ -83,9 +89,20 @@
 
 
 <div class="viewcode-block" id="DiscreteDist">
-<a class="viewcode-back" href="../../modules/discrete.html#prob_spaces.discrete.DiscreteDist">[docs]</a>
+<a class="viewcode-back" href="../../modules/discrete.html#prob_spaces.DiscreteDist">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DiscreteDist</span><span class="p">(</span><span class="n">spaces</span><span class="o">.</span><span class="n">Discrete</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prob</span><span class="p">:</span> <span class="n">th</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">mask</span><span class="p">:</span> <span class="n">th</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MaskedCategorical</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute and return a masked categorical distribution based on the given probability</span>
+<span class="sd">        tensor and an optional mask. The distribution incorporates specific probabilities</span>
+<span class="sd">        and constraints defined by the provided input.</span>
+
+<span class="sd">        :param prob: A tensor representing the probabilities for each category.</span>
+<span class="sd">        :param mask: A tensor specifying a mask to limit the valid categories.</span>
+<span class="sd">                     Defaults to a tensor of ones if not provided.</span>
+<span class="sd">        :return: A MaskedCategorical distribution constructed with given probabilities,</span>
+<span class="sd">                 mask, and starting values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">probs</span> <span class="o">=</span> <span class="n">prob</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
         <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
         <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span> <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">th</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">probs</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">th</span><span class="o">.</span><span class="n">bool</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">probs</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
@@ -93,7 +110,7 @@
         <span class="k">return</span> <span class="n">dist</span>
 
 <div class="viewcode-block" id="DiscreteDist.from_space">
-<a class="viewcode-back" href="../../modules/discrete.html#prob_spaces.discrete.DiscreteDist.from_space">[docs]</a>
+<a class="viewcode-back" href="../../modules/discrete.html#prob_spaces.DiscreteDist.from_space">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_space</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">space</span><span class="p">:</span> <span class="n">spaces</span><span class="o">.</span><span class="n">Discrete</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DiscreteDist&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>

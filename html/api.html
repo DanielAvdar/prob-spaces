@@ -6,21 +6,20 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>API Reference &mdash; prob-spaces 0.0.0.post1.dev0+d307e5d documentation</title>
+  <title>API Reference &mdash; prob-spaces 0.0.0.post1.dev0+b522949 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=7e416c5d"></script>
+      <script src="_static/documentation_options.js?v=40a981a0"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Discrete Space" href="modules/discrete.html" />
-    <link rel="prev" title="Installation" href="installation.html" /> 
+    <link rel="prev" title="Space Converter" href="modules/converter.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,17 +41,41 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+              <p class="caption" role="heading"><span class="caption-text">Introduction:</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Usage:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/discrete.html">Discrete Space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/multi_discrete.html">MultiDiscrete Space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/box.html">Box Space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/dict.html">Dict Space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/converter.html">Space Converter</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#probability-spaces">Probability Spaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-prob_spaces">Probability Spaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prob_spaces.DictDist"><code class="docutils literal notranslate"><span class="pre">DictDist</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prob_spaces.DiscreteDist"><code class="docutils literal notranslate"><span class="pre">DiscreteDist</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#prob_spaces.DiscreteDist.from_space"><code class="docutils literal notranslate"><span class="pre">DiscreteDist.from_space()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#prob_spaces.MultiDiscreteDist"><code class="docutils literal notranslate"><span class="pre">MultiDiscreteDist</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#prob_spaces.MultiDiscreteDist.from_space"><code class="docutils literal notranslate"><span class="pre">MultiDiscreteDist.from_space()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prob_spaces.MultiDiscreteDist.prob_last_dim"><code class="docutils literal notranslate"><span class="pre">MultiDiscreteDist.prob_last_dim</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#prob_spaces.convert_to_prob_space"><code class="docutils literal notranslate"><span class="pre">convert_to_prob_space()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#module-prob_spaces.converter">Converter</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#prob_spaces.converter.convert_to_prob_space"><code class="docutils literal notranslate"><span class="pre">convert_to_prob_space()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#distributions">Distributions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-prob_spaces.dists">Distributions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#prob_spaces.dists.categorical.CategoricalDist"><code class="docutils literal notranslate"><span class="pre">CategoricalDist</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#prob_spaces.dists.categorical.CategoricalDist.log_prob"><code class="docutils literal notranslate"><span class="pre">CategoricalDist.log_prob()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#prob_spaces.dists.categorical.CategoricalDist.rsample"><code class="docutils literal notranslate"><span class="pre">CategoricalDist.rsample()</span></code></a></li>
@@ -64,11 +87,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="modules/discrete.html">Discrete Space</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/multi_discrete.html">MultiDiscrete Space</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/box.html">Box Space</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/dict.html">Dict Space</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/converter.html">Space Converter</a></li>
 </ul>
 
         </div>
@@ -98,11 +116,70 @@
   <section id="api-reference">
 <h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading"></a></h1>
 <p>This section provides detailed information about the prob-spaces API.</p>
-<section id="probability-spaces">
-<h2>Probability Spaces<a class="headerlink" href="#probability-spaces" title="Link to this heading"></a></h2>
+<section id="module-prob_spaces">
+<span id="probability-spaces"></span><h2>Probability Spaces<a class="headerlink" href="#module-prob_spaces" title="Link to this heading"></a></h2>
+<p>Probability distribution classes for various Gymnasium spaces.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="prob_spaces.DictDist">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">prob_spaces.</span></span><span class="sig-name descname"><span class="pre">DictDist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spaces</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Space</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Space</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Generator</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">spaces_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Space</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob_spaces/dict.html#DictDist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prob_spaces.DictDist" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="prob_spaces.DiscreteDist">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">prob_spaces.</span></span><span class="sig-name descname"><span class="pre">DiscreteDist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">integer</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Generator</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">integer</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob_spaces/discrete.html#DiscreteDist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prob_spaces.DiscreteDist" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Discrete</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="prob_spaces.DiscreteDist.from_space">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Discrete</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="modules/discrete.html#prob_spaces.discrete.DiscreteDist" title="prob_spaces.discrete.DiscreteDist"><span class="pre">DiscreteDist</span></a></span></span><a class="reference internal" href="_modules/prob_spaces/discrete.html#DiscreteDist.from_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prob_spaces.DiscreteDist.from_space" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="prob_spaces.MultiDiscreteDist">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">prob_spaces.</span></span><span class="sig-name descname"><span class="pre">MultiDiscreteDist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">nvec:</span> <span class="pre">~numpy.ndarray[tuple[int,</span> <span class="pre">...],</span> <span class="pre">~numpy.dtype[~numpy.integer[~typing.Any]]]</span> <span class="pre">|</span> <span class="pre">list[int],</span> <span class="pre">dtype:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">type[~numpy.integer[~typing.Any]]</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'numpy.int64'&gt;,</span> <span class="pre">seed:</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">~numpy.random._generator.Generator</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">start:</span> <span class="pre">~numpy.ndarray[tuple[int,</span> <span class="pre">...],</span> <span class="pre">~numpy.dtype[~numpy.integer[~typing.Any]]]</span> <span class="pre">|</span> <span class="pre">list[int]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob_spaces/multi_discrete.html#MultiDiscreteDist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prob_spaces.MultiDiscreteDist" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultiDiscrete</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="prob_spaces.MultiDiscreteDist.from_space">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MultiDiscrete</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="modules/multi_discrete.html#prob_spaces.multi_discrete.MultiDiscreteDist" title="prob_spaces.multi_discrete.MultiDiscreteDist"><span class="pre">MultiDiscreteDist</span></a></span></span><a class="reference internal" href="_modules/prob_spaces/multi_discrete.html#MultiDiscreteDist.from_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prob_spaces.MultiDiscreteDist.from_space" title="Link to this definition"></a></dt>
+<dd><p>Convert a gymnasium space to a MultiDiscreteDist.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="prob_spaces.MultiDiscreteDist.prob_last_dim">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">prob_last_dim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#prob_spaces.MultiDiscreteDist.prob_last_dim" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="prob_spaces.convert_to_prob_space">
+<span class="sig-prename descclassname"><span class="pre">prob_spaces.</span></span><span class="sig-name descname"><span class="pre">convert_to_prob_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Box</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Discrete</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">MultiDiscrete</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="modules/box.html#prob_spaces.box.BoxDist" title="prob_spaces.box.BoxDist"><span class="pre">BoxDist</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="modules/discrete.html#prob_spaces.discrete.DiscreteDist" title="prob_spaces.discrete.DiscreteDist"><span class="pre">DiscreteDist</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="modules/multi_discrete.html#prob_spaces.multi_discrete.MultiDiscreteDist" title="prob_spaces.multi_discrete.MultiDiscreteDist"><span class="pre">MultiDiscreteDist</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/prob_spaces/converter.html#convert_to_prob_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prob_spaces.convert_to_prob_space" title="Link to this definition"></a></dt>
+<dd><p>Converts an action space into its corresponding probability distribution space.
+This function supports different types of action spaces and creates an appropriate
+distribution space for each one. Supported action spaces include <cite>MultiDiscrete</cite>,
+<cite>Discrete</cite>, <cite>Box</cite>, and <cite>Dict</cite>. For <cite>Dict</cite> action spaces, the function recursively
+converts each subspace into its probability distribution space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>action_space</strong> (<em>Spaces</em>) – The input action space to be converted. This can be an instance
+of <cite>gym.spaces.MultiDiscrete</cite>, <cite>gym.spaces.Discrete</cite>, <cite>gym.spaces.Box</cite>, or
+<cite>gym.spaces.Dict</cite>.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – If the input action space type is not supported.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The corresponding probability distribution space created based on the input
+action space type.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-prob_spaces.converter">
-<span id="converter"></span><span id="module-prob_spaces"></span><h2>Converter<a class="headerlink" href="#module-prob_spaces.converter" title="Link to this heading"></a></h2>
+<span id="converter"></span><h2>Converter<a class="headerlink" href="#module-prob_spaces.converter" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="prob_spaces.converter.convert_to_prob_space">
 <span class="sig-prename descclassname"><span class="pre">prob_spaces.converter.</span></span><span class="sig-name descname"><span class="pre">convert_to_prob_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Box</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Discrete</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">MultiDiscrete</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="modules/box.html#prob_spaces.box.BoxDist" title="prob_spaces.box.BoxDist"><span class="pre">BoxDist</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="modules/discrete.html#prob_spaces.discrete.DiscreteDist" title="prob_spaces.discrete.DiscreteDist"><span class="pre">DiscreteDist</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="modules/multi_discrete.html#prob_spaces.multi_discrete.MultiDiscreteDist" title="prob_spaces.multi_discrete.MultiDiscreteDist"><span class="pre">MultiDiscreteDist</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/prob_spaces/converter.html#convert_to_prob_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prob_spaces.converter.convert_to_prob_space" title="Link to this definition"></a></dt>
@@ -128,10 +205,10 @@ action space type.</p>
 </dd></dl>
 
 </section>
-<section id="distributions">
-<h2>Distributions<a class="headerlink" href="#distributions" title="Link to this heading"></a></h2>
+<section id="module-prob_spaces.dists">
+<span id="distributions"></span><h2>Distributions<a class="headerlink" href="#module-prob_spaces.dists" title="Link to this heading"></a></h2>
 <dl class="py class" id="module-prob_spaces.dists.categorical">
-<span id="module-prob_spaces.dists"></span><dt class="sig sig-object py" id="prob_spaces.dists.categorical.CategoricalDist">
+<dt class="sig sig-object py" id="prob_spaces.dists.categorical.CategoricalDist">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">prob_spaces.dists.categorical.</span></span><span class="sig-name descname"><span class="pre">CategoricalDist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">probs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg_inf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">integer</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">integer</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/prob_spaces/dists/categorical.html#CategoricalDist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#prob_spaces.dists.categorical.CategoricalDist" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MaskedCategorical</span></code></p>
 <dl class="py method">
@@ -175,8 +252,7 @@ samples if the distribution parameters are batched.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="modules/discrete.html" class="btn btn-neutral float-right" title="Discrete Space" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="modules/converter.html" class="btn btn-neutral float-left" title="Space Converter" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
