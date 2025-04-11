@@ -19,6 +19,16 @@ environments.
    :target: https://opensource.org/licenses/MIT
    :alt: License
 
+.. image:: https://img.shields.io/badge/ubuntu-blue?logo=ubuntu
+   :alt: Ubuntu
+
+.. image:: https://img.shields.io/badge/ubuntu-blue?logo=windows
+   :alt: Windows
+
+.. image:: https://img.shields.io/badge/ubuntu-blue?logo=apple
+   :alt: MacOS
+
+
 
 .. toctree::
    :maxdepth: 1
