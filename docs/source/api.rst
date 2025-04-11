@@ -1,10 +1,10 @@
 API Reference
-============
+=============
 
 This section provides detailed information about the prob-spaces API.
 
 Probability Spaces
------------------
+------------------
 
 .. automodule:: prob_spaces
    :members:
@@ -20,7 +20,7 @@ Converter
    :show-inheritance:
 
 Distributions
-------------
+-------------
 
 .. automodule:: prob_spaces.dists
    :members:

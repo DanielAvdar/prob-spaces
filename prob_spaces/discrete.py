@@ -6,6 +6,17 @@ from prob_spaces.dists.categorical import CategoricalDist, MaskedCategorical
 
 class DiscreteDist(spaces.Discrete):
     def __call__(self, prob: th.Tensor, mask: th.Tensor = None) -> MaskedCategorical:
+        """
+        Compute and return a masked categorical distribution based on the given probability
+        tensor and an optional mask. The distribution incorporates specific probabilities
+        and constraints defined by the provided input.
+
+        :param prob: A tensor representing the probabilities for each category.
+        :param mask: A tensor specifying a mask to limit the valid categories.
+                     Defaults to a tensor of ones if not provided.
+        :return: A MaskedCategorical distribution constructed with given probabilities,
+                 mask, and starting values.
+        """
         probs = prob.reshape(self.n)  # type: ignore
         start = self.start
         mask = mask if mask is not None else th.ones_like(probs, dtype=th.bool, device=probs.device)
