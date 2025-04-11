@@ -14,11 +14,11 @@ sys.path.insert(0, os.path.abspath("../../"))
 
 
 project = "prob-spaces"
-version = version(project)  # todo: change my-pkg to your package name
+version = version(project)
 release = version
 
-copyright = "2025, DanielAvdar"  # noqa  todo: change this to your name
-author = "DanielAvdar"  # todo: change this to your name
+copyright = "2025, DanielAvdar"  # noqa
+author = "DanielAvdar"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
