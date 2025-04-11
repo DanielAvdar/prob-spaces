@@ -15,7 +15,7 @@ API Reference
 ------------
 
 .. autoclass:: prob_spaces.dict.DictDist
-   :members:
+   :members: __call__
    :undoc-members:
    :show-inheritance:
 
