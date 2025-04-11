@@ -1,14 +1,14 @@
 # prob-spaces: Probability Distributions from Gymnasium Spaces
 
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/prob-spaceslate)](https://pypi.org/project/prob-spaceslate/)
-[![version](https://img.shields.io/pypi/v/prob-spaceslate)](https://img.shields.io/pypi/v/prob-spaceslate)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/prob-spaces)](https://pypi.org/project/prob-spaces/)
+[![version](https://img.shields.io/pypi/v/prob-spaces)](https://img.shields.io/pypi/v/prob-spaces)
 [![License](https://img.shields.io/:license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![OS](https://img.shields.io/badge/ubuntu-blue?logo=ubuntu)
 ![OS](https://img.shields.io/badge/win-blue?logo=windows)
 ![OS](https://img.shields.io/badge/mac-blue?logo=apple)
-[![Tests](https://github.com/DanielAvdar/prob-spaceslate/actions/workflows/ci.yml/badge.svg)](https://github.com/DanielAvdar/prob-spaceslate/actions/workflows/ci.yml)
-[![Code Checks](https://github.com/DanielAvdar/prob-spaceslate/actions/workflows/code-checks.yml/badge.svg)](https://github.com/DanielAvdar/prob-spaceslate/actions/workflows/code-checks.yml)
-[![codecov](https://codecov.io/gh/DanielAvdar/prob-spaceslate/graph/badge.svg?token=N0V9KANTG2)](https://codecov.io/gh/DanielAvdar/prob-spaceslate)
+[![Tests](https://github.com/DanielAvdar/prob-spaces/actions/workflows/ci.yml/badge.svg)](https://github.com/DanielAvdar/prob-spaces/actions/workflows/ci.yml)
+[![Code Checks](https://github.com/DanielAvdar/prob-spaces/actions/workflows/code-checks.yml/badge.svg)](https://github.com/DanielAvdar/prob-spaces/actions/workflows/code-checks.yml)
+[![codecov](https://codecov.io/gh/DanielAvdar/prob-spaces/graph/badge.svg?token=N0V9KANTG2)](https://codecov.io/gh/DanielAvdar/prob-spaces)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 **prob-spaces** is a Python package that allows you to create probability distributions from Gymnasium spaces.
