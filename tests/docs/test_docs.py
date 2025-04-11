@@ -11,6 +11,7 @@ def collect_examples():
     assert docs_folder_path.exists(), f"Docs path doesn't exist: {docs_folder_path.resolve()}"
 
     all_rst_files = list(docs_folder_path.glob("*.rst"))
+    all_rst_files.extend((docs_folder_path / "modules").glob("*.rst"))
     print(f"Found {len(all_rst_files)} .rst files in docs folder.")
     # Configure Sybil
     sybil = Sybil(
