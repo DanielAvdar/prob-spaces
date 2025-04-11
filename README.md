@@ -65,3 +65,7 @@ action = dist.sample()
 # Compute log probability
 log_prob = dist.log_prob(action)
 ```
+
+## Documentation
+
+[Documentation](https://prob-spaces.readthedocs.io/en/latest/) is available online and provides detailed information on how to use the package, including examples and API references.
