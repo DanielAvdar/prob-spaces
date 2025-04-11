@@ -41,10 +41,8 @@ dev = [
     "mypy==1.13.0",
     "pytest-parametrization>=2022",
     "ruff>=0.8.2",
-#    "matplotlib",
-#    "jupyterlab>=3.2.0",
+
     "scipy",
-#    "box2d-py>=2.3.8",
     "gymnasium[all]",
     "pygame",
     "jax",
