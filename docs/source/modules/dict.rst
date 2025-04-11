@@ -1,5 +1,7 @@
+.. _dict:
+
 Dict Space
-=========
+==========
 
 The ``DictDist`` class extends the Gymnasium Dict space to create nested distributions.
 
@@ -13,7 +15,7 @@ API Reference
 ------------
 
 .. autoclass:: prob_spaces.dict.DictDist
-   :members:
+   :members: __call__
    :undoc-members:
    :show-inheritance:
 

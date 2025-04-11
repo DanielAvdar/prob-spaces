@@ -33,6 +33,17 @@ class BoxDist(spaces.Box):
         return transforms
 
     def __call__(self, loc: th.Tensor, scale: th.Tensor) -> th.distributions.Distribution:
+        """
+        Generates a transformed probability distribution based on the input location and scale
+        parameters. The method constructs a base distribution, applies a sequence of
+        transformations to it, and returns the resulting transformed distribution. This
+        allows for creating flexible and expressive probability distributions.
+
+        :param loc: A tensor specifying the location parameters for the base distribution.
+        :param scale: A tensor specifying the scale parameters for the base distribution.
+        :return: A transformed distribution object derived from the specified base distribution
+            and transformations.
+        """
         dist = self.base_dist(loc, scale, validate_args=True)  # type: ignore
         transforms = self.transforms(loc.device)
         transformed_dist = TransformedDistribution(dist, transforms, validate_args=True)

@@ -1,5 +1,7 @@
+.. _discrete:
+
 Discrete Space
-=============
+==============
 
 The ``DiscreteDist`` class extends the Gymnasium Discrete space to create categorical distributions.
 
@@ -13,7 +15,7 @@ API Reference
 ------------
 
 .. autoclass:: prob_spaces.discrete.DiscreteDist
-   :members:
+   :members: __call__
    :undoc-members:
    :show-inheritance:
 

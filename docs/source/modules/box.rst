@@ -1,5 +1,7 @@
+.. _box:
+
 Box Space
-========
+=========
 
 The ``BoxDist`` class extends the Gymnasium Box space to create continuous probability distributions.
 
@@ -14,7 +16,7 @@ API Reference
 -------------
 
 .. autoclass:: prob_spaces.box.BoxDist
-   :members:
+   :members: __call__
    :undoc-members:
    :show-inheritance:
 

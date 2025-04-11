@@ -37,6 +37,23 @@ class MultiDiscreteDist(spaces.MultiDiscrete):
         return mask
 
     def __call__(self, prob: th.Tensor, mask: th.Tensor = None) -> MaskedCategorical:
+        """
+        Applies a transformation to the input probability tensor and optional mask, creating
+        a `MaskedCategorical` distribution. The method reshapes the input probabilities
+        to match the specified `nvec` dimensions, applies an optional mask for masking
+        specific probabilities, and combines these with an internal mask. The result
+        is used to create a `MaskedCategorical` distribution.
+
+        :param prob: A tensor containing probabilities to be reshaped and used in
+            constructing the distribution.
+        :type prob: th.Tensor
+        :param mask: An optional boolean tensor for masking specific probabilities
+            before creating the distribution. Defaults to None.
+        :type mask: th.Tensor, optional
+        :return: A `MaskedCategorical` distribution object created with reshaped
+            probabilities and combined masking information.
+        :rtype: MaskedCategorical
+        """
         probs = prob.reshape(*self.nvec.shape, self.prob_last_dim)
         start = self.start
         mask = mask if mask is not None else th.ones_like(probs, dtype=th.bool, device=probs.device)
