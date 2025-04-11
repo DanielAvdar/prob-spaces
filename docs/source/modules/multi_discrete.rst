@@ -1,5 +1,7 @@
+.. _multi_discrete:
+
 MultiDiscrete Space
-==================
+===================
 
 The ``MultiDiscreteDist`` class extends the Gymnasium MultiDiscrete space to create categorical distributions
 for multiple discrete variables.

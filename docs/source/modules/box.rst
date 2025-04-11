@@ -1,5 +1,7 @@
+.. _box:
+
 Box Space
-========
+=========
 
 The ``BoxDist`` class extends the Gymnasium Box space to create continuous probability distributions.
 

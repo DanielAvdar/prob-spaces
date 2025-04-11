@@ -1,5 +1,7 @@
+.. _discrete:
+
 Discrete Space
-=============
+==============
 
 The ``DiscreteDist`` class extends the Gymnasium Discrete space to create categorical distributions.
 

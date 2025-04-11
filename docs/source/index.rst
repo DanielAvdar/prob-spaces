@@ -19,18 +19,30 @@ environments.
    :target: https://opensource.org/licenses/MIT
    :alt: License
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
 
-   introduction
-   installation
-   api
-   modules/discrete
-   modules/multi_discrete
-   modules/box
-   modules/dict
-   modules/converter
+.. toctree::
+   :maxdepth: 1
+   :caption: Introduction:
+
+   ./introduction
+   ./installation
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Usage:
+
+   ./modules/discrete
+   ./modules/multi_discrete
+   ./modules/box
+   ./modules/dict
+   ./modules/converter
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API Reference:
+
+   ./api
+
 
 Indices and tables
 ==================

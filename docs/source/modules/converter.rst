@@ -1,3 +1,5 @@
+.. _converter:
+
 Space Converter
 ===============
 

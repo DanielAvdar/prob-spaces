@@ -1,5 +1,7 @@
+.. _dict:
+
 Dict Space
-=========
+==========
 
 The ``DictDist`` class extends the Gymnasium Dict space to create nested distributions.
 
