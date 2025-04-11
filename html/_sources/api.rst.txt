@@ -8,26 +8,25 @@ Probability Spaces
 
 .. automodule:: prob_spaces
    :members:
-   :undoc-members:
-   :show-inheritance:
+   :no-index:
+
 
 Converter
 ---------
 
 .. automodule:: prob_spaces.converter
    :members:
-   :undoc-members:
-   :show-inheritance:
+   :no-index:
+
 
 Distributions
 -------------
 
 .. automodule:: prob_spaces.dists
    :members:
-   :undoc-members:
-   :show-inheritance:
+   :no-index:
+
 
 .. automodule:: prob_spaces.dists.categorical
    :members:
-   :undoc-members:
-   :show-inheritance:
+   :no-index:
