@@ -4,7 +4,7 @@ import numpy as np
 import torch
 import torch as th
 from numpy._typing import NDArray
-from torchrl.modules import MaskedCategorical  # type: ignore
+from torchrl.modules.distributions import MaskedCategorical  # type: ignore[import-untyped]
 
 
 class CategoricalDist(MaskedCategorical):

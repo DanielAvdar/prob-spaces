@@ -18,6 +18,7 @@ dependencies = [
     "gymnasium",
     "torch",
 ]
+
 [[tool.uv.index]]
 name = "pytorch-cu124"
 url = "https://download.pytorch.org/whl/cu124"
@@ -26,6 +27,9 @@ explicit = true
 torch = [
   { index = "pytorch-cu124", marker = "platform_system != 'Darwin'"},
 ]
+
+[install]
+prefer-binary = true
 
 [dependency-groups]
 dev = [
@@ -37,9 +41,22 @@ dev = [
     "mypy==1.13.0",
     "pytest-parametrization>=2022",
     "ruff>=0.8.2",
-    "matplotlib",
-    "jupyterlab>=3.2.0",
-    "scipy"
+#    "matplotlib",
+#    "jupyterlab>=3.2.0",
+    "scipy",
+#    "box2d-py>=2.3.8",
+    "gymnasium[all]",
+    "pygame",
+    "jax",
+    "shimmy[gym-v26]",
+    "pettingzoo",
+    "chess",
+
+    "luxai-s3",
+    "sybil[pytest]",
+    "sphinx>=8.2.0; python_version >= '3.11'",
+    "sphinx>=7.0.0; python_version < '3.11'",
+    "sphinx-rtd-theme>=3.0.2",
 ]
 
 [tool.hatch.build.targets.sdist]
