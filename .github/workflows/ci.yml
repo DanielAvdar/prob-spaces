@@ -20,7 +20,7 @@ jobs:
       - uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
-      - if : matrix.os == 'macos-latest'
+      - if: matrix.os == 'macos-latest'
         run: brew install swig
 
       - run: uv python install ${{ matrix.python-version }}
