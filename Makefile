@@ -7,6 +7,9 @@ install:
 	uv sync --all-extras --all-groups --frozen
 	uv tool install pre-commit --with pre-commit-uv --force-reinstall
 
+install-docs:
+	uv sync --group docs --frozen --no-group dev
+
 update:
 	uv lock
 	uvx pre-commit autoupdate
