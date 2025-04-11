@@ -53,6 +53,9 @@ dev = [
     "chess",
 
     "luxai-s3",
+
+]
+docs = [
     "sybil[pytest]",
     "sphinx>=8.2.0; python_version >= '3.11'",
     "sphinx>=7.0.0; python_version < '3.11'",
