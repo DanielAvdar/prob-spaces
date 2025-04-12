@@ -12,7 +12,7 @@ Overview
 It is useful for environments with a fixed number of distinct actions.
 
 API Reference
-------------
+-------------
 
 .. autoclass:: prob_spaces.discrete.DiscreteDist
    :members: __call__
@@ -20,7 +20,7 @@ API Reference
    :show-inheritance:
 
 Usage Examples
--------------
+--------------
 
 Basic usage:
 

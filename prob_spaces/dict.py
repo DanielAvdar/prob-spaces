@@ -17,7 +17,13 @@ class DictDist(spaces.Dict):
         mask = mask or {}
 
         for key, s in self.spaces.items():
-            space_mask = mask.get(key, None)
-            dist_dict[key] = s(prob[key], mask=space_mask)  # type: ignore #todo change into prob_spaces type
+            if isinstance(s, spaces.Discrete) or isinstance(s, spaces.MultiDiscrete):
+                space_mask = mask.get(key, None) if isinstance(mask, dict) else None
+                dist_dict[key] = s(prob[key], space_mask)  # type: ignore
+            else:
+                dist_dict[key] = s(  # type: ignore
+                    prob[key][0],
+                    prob[key][1],
+                )
 
         return dist_dict

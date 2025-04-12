@@ -28,6 +28,9 @@ environments.
 .. image:: https://img.shields.io/badge/ubuntu-blue?logo=apple
    :alt: MacOS
 
+.. image:: https://img.shields.io/github/last-commit/DanielAvdar/prob-spaces/main
+   :alt: Last Commit
+
 
 
 .. toctree::
@@ -41,11 +44,12 @@ environments.
    :maxdepth: 1
    :caption: Usage:
 
+   ./modules/converter
    ./modules/discrete
    ./modules/multi_discrete
    ./modules/box
    ./modules/dict
-   ./modules/converter
+   ./modules/tuple
 
 .. toctree::
    :maxdepth: 1
