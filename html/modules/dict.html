@@ -6,20 +6,20 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dict Space &mdash; prob-spaces 0.0.4b0 documentation</title>
+  <title>Dict Space &mdash; prob-spaces 0.0.0.post1.dev0+ed4ceea documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=a1c9030e"></script>
+      <script src="../_static/documentation_options.js?v=fca869b2"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Space Converter" href="converter.html" />
+    <link rel="next" title="Tuple Space" href="tuple.html" />
     <link rel="prev" title="Box Space" href="box.html" /> 
 </head>
 
@@ -49,6 +49,7 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Usage:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="converter.html">Space Converter</a></li>
 <li class="toctree-l1"><a class="reference internal" href="discrete.html">Discrete Space</a></li>
 <li class="toctree-l1"><a class="reference internal" href="multi_discrete.html">MultiDiscrete Space</a></li>
 <li class="toctree-l1"><a class="reference internal" href="box.html">Box Space</a></li>
@@ -64,7 +65,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#usage-examples">Usage Examples</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="converter.html">Space Converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tuple.html">Tuple Space</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
 <ul>
@@ -132,33 +133,34 @@ consist of multiple sub-spaces organized in a dictionary structure.</p>
 <section id="usage-examples">
 <h2>Usage Examples<a class="headerlink" href="#usage-examples" title="Link to this heading"></a></h2>
 <p>Basic usage:</p>
-<blockquote>
-<div><p>import torch as th
-import gymnasium as gym
-from prob_spaces.dict import DictDist
-from prob_spaces.discrete import DiscreteDist
-from prob_spaces.box import BoxDist</p>
-<p># Create a dictionary space with a discrete and a box space
-space = DictDist({</p>
-<blockquote>
-<div><p>‘discrete’: DiscreteDist(n=3),
-‘continuous’: BoxDist(low=-1, high=1, shape=(2,))</p>
-</div></blockquote>
-<p>})</p>
-<p># Create probabilities for each space
-probs = {</p>
-<blockquote>
-<div><p>‘discrete’: th.tensor([0.3, 0.4, 0.3]),
-‘continuous’: (th.zeros(2), th.ones(2))  # (loc, scale) for box space</p>
-</div></blockquote>
-<p>}</p>
-<p># Create distributions
-dists = space(probs)</p>
-<p># Sample from each distribution
-samples = {k: dist.sample() for k, dist in dists.items()}</p>
-<p># Compute log probabilities
-log_probs = {k: dist.log_prob(samples[k]) for k, dist in dists.items()}</p>
-</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">th</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gymnasium</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gym</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">prob_spaces.dict</span><span class="w"> </span><span class="kn">import</span> <span class="n">DictDist</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">prob_spaces.discrete</span><span class="w"> </span><span class="kn">import</span> <span class="n">DiscreteDist</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">prob_spaces.box</span><span class="w"> </span><span class="kn">import</span> <span class="n">BoxDist</span>
+
+<span class="c1"># Create a dictionary space with a discrete and a box space</span>
+<span class="n">space</span> <span class="o">=</span> <span class="n">DictDist</span><span class="p">({</span>
+    <span class="s1">&#39;discrete&#39;</span><span class="p">:</span> <span class="n">DiscreteDist</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+    <span class="s1">&#39;continuous&#39;</span><span class="p">:</span> <span class="n">BoxDist</span><span class="p">(</span><span class="n">low</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,))</span>
+<span class="p">})</span>
+
+<span class="c1"># Create probabilities for each space</span>
+<span class="n">probs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;discrete&#39;</span><span class="p">:</span> <span class="n">th</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]),</span>
+    <span class="s1">&#39;continuous&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">th</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">th</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>  <span class="c1"># (loc, scale) for box space</span>
+<span class="p">}</span>
+
+<span class="c1"># Create distributions</span>
+<span class="n">dists</span> <span class="o">=</span> <span class="n">space</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+
+<span class="c1"># Sample from each distribution</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">dist</span><span class="o">.</span><span class="n">sample</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">dist</span> <span class="ow">in</span> <span class="n">dists</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+<span class="c1"># Compute log probabilities</span>
+<span class="n">log_probs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">dist</span><span class="o">.</span><span class="n">log_prob</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">dist</span> <span class="ow">in</span> <span class="n">dists</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -167,7 +169,7 @@ log_probs = {k: dist.log_prob(samples[k]) for k, dist in dists.items()}</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="box.html" class="btn btn-neutral float-left" title="Box Space" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="converter.html" class="btn btn-neutral float-right" title="Space Converter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="tuple.html" class="btn btn-neutral float-right" title="Tuple Space" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
