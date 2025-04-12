@@ -19,9 +19,9 @@ class DictDist(spaces.Dict):
         for key, s in self.spaces.items():
             if isinstance(s, spaces.Discrete) or isinstance(s, spaces.MultiDiscrete):
                 space_mask = mask.get(key, None) if isinstance(mask, dict) else None
-                dist_dict[key] = s(prob[key], space_mask)
+                dist_dict[key] = s(prob[key], space_mask)  # type: ignore
             else:
-                dist_dict[key] = s(
+                dist_dict[key] = s(  # type: ignore
                     prob[key][0],
                     prob[key][1],
                 )

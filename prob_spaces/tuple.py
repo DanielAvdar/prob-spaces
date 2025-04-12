@@ -20,8 +20,8 @@ class TupleDist(spaces.Tuple):
             space_mask = mask[i]
 
             if isinstance(s, (spaces.Discrete, spaces.MultiDiscrete)):
-                dist_list.append(s(prob[i], space_mask))
+                dist_list.append(s(prob[i], space_mask))  # type: ignore
             else:
-                dist_list.append(s(prob[i][0], prob[i][1]))
+                dist_list.append(s(prob[i][0], prob[i][1]))  # type: ignore
 
         return tuple(dist_list)
