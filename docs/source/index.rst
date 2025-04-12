@@ -28,6 +28,9 @@ environments.
 .. image:: https://img.shields.io/badge/ubuntu-blue?logo=apple
    :alt: MacOS
 
+.. image:: https://img.shields.io/github/last-commit/ivanovnikita/prob-spaces/main
+   :alt: Last Commit
+
 
 
 .. toctree::

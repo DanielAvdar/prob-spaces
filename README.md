@@ -10,7 +10,7 @@
 [![Code Checks](https://github.com/DanielAvdar/prob-spaces/actions/workflows/code-checks.yml/badge.svg)](https://github.com/DanielAvdar/prob-spaces/actions/workflows/code-checks.yml)
 [![codecov](https://codecov.io/gh/DanielAvdar/prob-spaces/graph/badge.svg?token=N0V9KANTG2)](https://codecov.io/gh/DanielAvdar/prob-spaces)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-
+![Last Commit](https://img.shields.io/github/last-commit/DanielAvdar/prob-spaces/main)
 **prob-spaces** is a Python package that allows you to create probability distributions from Gymnasium spaces.
 It provides a simple and intuitive interface for working with various probability spaces in reinforcement learning
 environments.
