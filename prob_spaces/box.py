@@ -41,11 +41,13 @@ class BoxDist(spaces.Box):
     def __call__(self, loc: th.Tensor, scale: th.Tensor) -> th.distributions.Distribution:
         """Generate a transformed probability distribution.
 
-        Construct a base distribution, apply a sequence of transformations, and return the resulting transformed distribution.
+        Construct a base distribution, apply a sequence of transformations, and return the resulting
+        transformed distribution.
 
         :param loc: A tensor specifying the location parameters for the base distribution.
         :param scale: A tensor specifying the scale parameters for the base distribution.
-        :return: A transformed distribution object derived from the specified base distribution and transformations.
+        :return: A transformed distribution object derived from the specified base distribution and
+            transformations.
         """
         dist = self.base_dist(loc, scale, validate_args=True)  # type: ignore
         transforms = self.transforms(loc.device)

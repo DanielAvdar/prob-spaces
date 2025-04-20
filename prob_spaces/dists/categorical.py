@@ -41,15 +41,6 @@ class CategoricalDist(MaskedCategorical):
         exact_sample = self._calc_exact(sample, sample_shape)
         return exact_sample
 
-    def rsample(
-        self,
-        sample_shape: Optional[Union[th.Size, Sequence[int]]] = None,
-    ) -> th.Tensor:
-        """Draw a reparameterized sample from the categorical distribution with start offset."""
-        sample = super().rsample(sample_shape)
-        exact_sample = self._calc_exact(sample, sample_shape)
-        return exact_sample
-
     def _calc_exact(
         self,
         sample: th.Tensor,
