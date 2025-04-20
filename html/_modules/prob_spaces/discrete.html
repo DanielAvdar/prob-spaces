@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>prob_spaces.discrete &mdash; prob-spaces 0.1.0 documentation</title>
+  <title>prob_spaces.discrete &mdash; prob-spaces 0.0.0.post1.dev0+8503782 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/documentation_options.js?v=cf684b77"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -83,7 +83,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for prob_spaces.discrete</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">th</span>
+<span></span><span class="sd">&quot;&quot;&quot;Module for probability distributions over Discrete spaces.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">th</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">gymnasium</span><span class="w"> </span><span class="kn">import</span> <span class="n">spaces</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">prob_spaces.dists.categorical</span><span class="w"> </span><span class="kn">import</span> <span class="n">CategoricalDist</span><span class="p">,</span> <span class="n">MaskedCategorical</span>
@@ -92,19 +94,22 @@
 <div class="viewcode-block" id="DiscreteDist">
 <a class="viewcode-back" href="../../modules/discrete.html#prob_spaces.DiscreteDist">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DiscreteDist</span><span class="p">(</span><span class="n">spaces</span><span class="o">.</span><span class="n">Discrete</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Probability distribution for Discrete spaces.&quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="DiscreteDist.__call__">
 <a class="viewcode-back" href="../../modules/discrete.html#prob_spaces.DiscreteDist.__call__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prob</span><span class="p">:</span> <span class="n">th</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">mask</span><span class="p">:</span> <span class="n">th</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MaskedCategorical</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Compute and return a masked categorical distribution based on the given probability</span>
-<span class="sd">        tensor and an optional mask. The distribution incorporates specific probabilities</span>
-<span class="sd">        and constraints defined by the provided input.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute and return a masked categorical distribution.</span>
+
+<span class="sd">        Compute a masked categorical distribution based on the given probability tensor and an</span>
+<span class="sd">        optional mask. The distribution incorporates specific probabilities and constraints defined</span>
+<span class="sd">        by the provided input.</span>
 
 <span class="sd">        :param prob: A tensor representing the probabilities for each category.</span>
-<span class="sd">        :param mask: A tensor specifying a mask to limit the valid categories.</span>
-<span class="sd">                     Defaults to a tensor of ones if not provided.</span>
-<span class="sd">        :return: A MaskedCategorical distribution constructed with given probabilities,</span>
-<span class="sd">                 mask, and starting values.</span>
+<span class="sd">        :param mask: A tensor specifying a mask to limit the valid categories. Defaults to a tensor</span>
+<span class="sd">            of ones if not provided.</span>
+<span class="sd">        :return: A MaskedCategorical distribution constructed with given probabilities, mask, and</span>
+<span class="sd">            starting values.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">probs</span> <span class="o">=</span> <span class="n">prob</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
         <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
@@ -113,13 +118,17 @@
         <span class="k">return</span> <span class="n">dist</span></div>
 
 
+<div class="viewcode-block" id="DiscreteDist.from_space">
+<a class="viewcode-back" href="../../api.html#prob_spaces.DiscreteDist.from_space">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_space</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">space</span><span class="p">:</span> <span class="n">spaces</span><span class="o">.</span><span class="n">Discrete</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DiscreteDist&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a DiscreteDist from a gymnasium Discrete space.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
             <span class="n">n</span><span class="o">=</span><span class="n">space</span><span class="o">.</span><span class="n">n</span><span class="p">,</span>
             <span class="n">start</span><span class="o">=</span><span class="n">space</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
             <span class="c1"># dtype=space.dtype,</span>
         <span class="p">)</span></div>
+</div>
 
 </pre></div>
 

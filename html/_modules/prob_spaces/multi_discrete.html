@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>prob_spaces.multi_discrete &mdash; prob-spaces 0.1.0 documentation</title>
+  <title>prob_spaces.multi_discrete &mdash; prob-spaces 0.0.0.post1.dev0+8503782 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/documentation_options.js?v=cf684b77"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -83,7 +83,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for prob_spaces.multi_discrete</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+<span></span><span class="sd">&quot;&quot;&quot;Module for probability distributions over MultiDiscrete spaces.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">th</span>
@@ -96,6 +98,8 @@
 <div class="viewcode-block" id="MultiDiscreteDist">
 <a class="viewcode-back" href="../../modules/multi_discrete.html#prob_spaces.MultiDiscreteDist">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">MultiDiscreteDist</span><span class="p">(</span><span class="n">spaces</span><span class="o">.</span><span class="n">MultiDiscrete</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Probability distribution for MultiDiscrete spaces.&quot;&quot;&quot;</span>
+
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">nvec</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
@@ -103,14 +107,17 @@
         <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">Generator</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">start</span><span class="p">:</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize MultiDiscreteDist with nvec, dtype, seed, and start.&quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">nvec</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">seed</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">internal_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal_mask</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">prob_last_dim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the last dimension size for probability tensors.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nvec</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_internal_mask</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return internal mask for valid actions in MultiDiscrete space.&quot;&quot;&quot;</span>
         <span class="n">prob_last_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_last_dim</span>
         <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">nvec</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_last_dim</span><span class="p">)</span>
         <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
@@ -126,21 +133,19 @@
 <div class="viewcode-block" id="MultiDiscreteDist.__call__">
 <a class="viewcode-back" href="../../modules/multi_discrete.html#prob_spaces.MultiDiscreteDist.__call__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prob</span><span class="p">:</span> <span class="n">th</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">mask</span><span class="p">:</span> <span class="n">th</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MaskedCategorical</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Applies a transformation to the input probability tensor and optional mask, creating</span>
-<span class="sd">        a `MaskedCategorical` distribution. The method reshapes the input probabilities</span>
-<span class="sd">        to match the specified `nvec` dimensions, applies an optional mask for masking</span>
-<span class="sd">        specific probabilities, and combines these with an internal mask. The result</span>
-<span class="sd">        is used to create a `MaskedCategorical` distribution.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply a transformation to the input probability tensor and optional mask.</span>
 
-<span class="sd">        :param prob: A tensor containing probabilities to be reshaped and used in</span>
-<span class="sd">            constructing the distribution.</span>
+<span class="sd">        Create a `MaskedCategorical` distribution by reshaping the input probabilities, applying an</span>
+<span class="sd">        optional mask, and combining with an internal mask.</span>
+
+<span class="sd">        :param prob: A tensor containing probabilities to be reshaped and used in constructing the</span>
+<span class="sd">            distribution.</span>
 <span class="sd">        :type prob: th.Tensor</span>
-<span class="sd">        :param mask: An optional boolean tensor for masking specific probabilities</span>
-<span class="sd">            before creating the distribution. Defaults to None.</span>
+<span class="sd">        :param mask: An optional boolean tensor for masking specific probabilities before creating</span>
+<span class="sd">            the distribution. Defaults to None.</span>
 <span class="sd">        :type mask: th.Tensor, optional</span>
-<span class="sd">        :return: A `MaskedCategorical` distribution object created with reshaped</span>
-<span class="sd">            probabilities and combined masking information.</span>
+<span class="sd">        :return: A `MaskedCategorical` distribution object created with reshaped probabilities and</span>
+<span class="sd">            combined masking information.</span>
 <span class="sd">        :rtype: MaskedCategorical</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">probs</span> <span class="o">=</span> <span class="n">prob</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">nvec</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_last_dim</span><span class="p">)</span>
@@ -155,7 +160,7 @@
 <a class="viewcode-back" href="../../api.html#prob_spaces.MultiDiscreteDist.from_space">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_space</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">space</span><span class="p">:</span> <span class="n">spaces</span><span class="o">.</span><span class="n">MultiDiscrete</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;MultiDiscreteDist&quot;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert a gymnasium space to a MultiDiscreteDist.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a MultiDiscreteDist from a gymnasium MultiDiscrete space.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">nvec</span><span class="o">=</span><span class="n">space</span><span class="o">.</span><span class="n">nvec</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">space</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">space</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>  <span class="c1"># type: ignore</span></div>
 </div>
 

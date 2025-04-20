@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>prob_spaces.converter &mdash; prob-spaces 0.1.0 documentation</title>
+  <title>prob_spaces.converter &mdash; prob-spaces 0.0.0.post1.dev0+8503782 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/documentation_options.js?v=cf684b77"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -83,7 +83,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for prob_spaces.converter</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gymnasium</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gym</span>
+<span></span><span class="sd">&quot;&quot;&quot;Module for converting gymnasium action spaces to probability distribution spaces.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">gymnasium</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gym</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">prob_spaces.box</span><span class="w"> </span><span class="kn">import</span> <span class="n">BoxDist</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">prob_spaces.dict</span><span class="w"> </span><span class="kn">import</span> <span class="n">DictDist</span>
@@ -98,20 +100,19 @@
 <div class="viewcode-block" id="convert_to_prob_space">
 <a class="viewcode-back" href="../../modules/converter.html#prob_spaces.convert_to_prob_space">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_prob_space</span><span class="p">(</span><span class="n">action_space</span><span class="p">:</span> <span class="n">Spaces</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DistSpaces</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Converts an action space into its corresponding probability distribution space.</span>
-<span class="sd">    This function supports different types of action spaces and creates an appropriate</span>
-<span class="sd">    distribution space for each one. Supported action spaces include `MultiDiscrete`,</span>
-<span class="sd">    `Discrete`, `Box`, and `Dict`. For `Dict` action spaces, the function recursively</span>
-<span class="sd">    converts each subspace into its probability distribution space.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert an action space into its corresponding probability distribution space.</span>
 
-<span class="sd">    :param action_space: The input action space to be converted. This can be an instance</span>
-<span class="sd">        of `gym.spaces.MultiDiscrete`, `gym.spaces.Discrete`, `gym.spaces.Box`, or</span>
-<span class="sd">        `gym.spaces.Dict`.</span>
+<span class="sd">    This function supports different types of action spaces and creates an appropriate distribution</span>
+<span class="sd">    space for each one. Supported action spaces include `MultiDiscrete`, `Discrete`, `Box`, and</span>
+<span class="sd">    `Dict`. For `Dict` action spaces, the function recursively converts each subspace into its</span>
+<span class="sd">    probability distribution space.</span>
+
+<span class="sd">    :param action_space: The input action space to be converted. This can be an instance of</span>
+<span class="sd">        `gym.spaces.MultiDiscrete`, `gym.spaces.Discrete`, `gym.spaces.Box`, or `gym.spaces.Dict`.</span>
 <span class="sd">    :type action_space: Spaces</span>
 <span class="sd">    :raises NotImplementedError: If the input action space type is not supported.</span>
-<span class="sd">    :return: The corresponding probability distribution space created based on the input</span>
-<span class="sd">        action space type.</span>
+<span class="sd">    :return: The corresponding probability distribution space created based on the input action space</span>
+<span class="sd">        type.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">action_space</span><span class="p">,</span> <span class="n">gym</span><span class="o">.</span><span class="n">spaces</span><span class="o">.</span><span class="n">MultiDiscrete</span><span class="p">):</span>
         <span class="n">space_dist</span> <span class="o">=</span> <span class="n">MultiDiscreteDist</span><span class="o">.</span><span class="n">from_space</span><span class="p">(</span><span class="n">action_space</span><span class="p">)</span>

@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>prob_spaces.box &mdash; prob-spaces 0.1.0 documentation</title>
+  <title>prob_spaces.box &mdash; prob-spaces 0.0.0.post1.dev0+8503782 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/documentation_options.js?v=cf684b77"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -83,7 +83,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for prob_spaces.box</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">SupportsFloat</span><span class="p">,</span> <span class="n">Type</span>
+<span></span><span class="sd">&quot;&quot;&quot;Module for probability distributions over Box spaces.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">SupportsFloat</span><span class="p">,</span> <span class="n">Type</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">th</span>
@@ -96,6 +98,8 @@
 <div class="viewcode-block" id="BoxDist">
 <a class="viewcode-back" href="../../modules/box.html#prob_spaces.box.BoxDist">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BoxDist</span><span class="p">(</span><span class="n">spaces</span><span class="o">.</span><span class="n">Box</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Probability distribution for Box spaces.&quot;&quot;&quot;</span>
+
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">low</span><span class="p">:</span> <span class="n">SupportsFloat</span> <span class="o">|</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span>
@@ -105,10 +109,12 @@
         <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">Generator</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">dist</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">Type</span><span class="p">[</span><span class="n">th</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">Distribution</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize BoxDist with bounds, shape, dtype, and base distribution.&quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">base_dist</span> <span class="o">=</span> <span class="n">dist</span> <span class="ow">or</span> <span class="n">th</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">Normal</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">transforms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="n">th</span><span class="o">.</span><span class="n">device</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return list of transforms to map base distribution to Box bounds.&quot;&quot;&quot;</span>
         <span class="n">t_low</span> <span class="o">=</span> <span class="n">th</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">low</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
         <span class="n">t_high</span> <span class="o">=</span> <span class="n">th</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">high</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
         <span class="n">range_value</span> <span class="o">=</span> <span class="n">t_high</span> <span class="o">-</span> <span class="n">t_low</span>
@@ -122,16 +128,15 @@
 <div class="viewcode-block" id="BoxDist.__call__">
 <a class="viewcode-back" href="../../modules/box.html#prob_spaces.box.BoxDist.__call__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loc</span><span class="p">:</span> <span class="n">th</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">scale</span><span class="p">:</span> <span class="n">th</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">th</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">Distribution</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Generates a transformed probability distribution based on the input location and scale</span>
-<span class="sd">        parameters. The method constructs a base distribution, applies a sequence of</span>
-<span class="sd">        transformations to it, and returns the resulting transformed distribution. This</span>
-<span class="sd">        allows for creating flexible and expressive probability distributions.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a transformed probability distribution.</span>
+
+<span class="sd">        Construct a base distribution, apply a sequence of transformations, and return the resulting</span>
+<span class="sd">        transformed distribution.</span>
 
 <span class="sd">        :param loc: A tensor specifying the location parameters for the base distribution.</span>
 <span class="sd">        :param scale: A tensor specifying the scale parameters for the base distribution.</span>
-<span class="sd">        :return: A transformed distribution object derived from the specified base distribution</span>
-<span class="sd">            and transformations.</span>
+<span class="sd">        :return: A transformed distribution object derived from the specified base distribution and</span>
+<span class="sd">            transformations.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_dist</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">validate_args</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
         <span class="n">transforms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">transforms</span><span class="p">(</span><span class="n">loc</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
@@ -141,6 +146,7 @@
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_space</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">space</span><span class="p">:</span> <span class="n">spaces</span><span class="o">.</span><span class="n">Box</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;BoxDist&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a BoxDist from a gymnasium Box space.&quot;&quot;&quot;</span>
         <span class="n">low</span> <span class="o">=</span> <span class="n">space</span><span class="o">.</span><span class="n">low</span>
         <span class="n">high</span> <span class="o">=</span> <span class="n">space</span><span class="o">.</span><span class="n">high</span>
         <span class="n">dtype</span> <span class="o">=</span> <span class="n">space</span><span class="o">.</span><span class="n">dtype</span>
