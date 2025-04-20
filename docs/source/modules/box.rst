@@ -27,6 +27,30 @@ Key Features
 * Built-in transformation to enforce bounds using sigmoid and affine transforms
 * Customizable base distribution (defaults to Normal)
 
+Mathematical Details
+-------------------
+
+The ``BoxDist`` distribution is constructed by transforming a base Normal distribution on \(\mathbb{R}\) to the bounded Box interval \([\text{low}, \text{high}]\) using two steps:
+
+1. **Sigmoid Transform:**
+   Maps \(z \in \mathbb{R}\) to \((0, 1)\) via the sigmoid function:
+   
+   .. math::
+      x = \sigma(z) = \frac{1}{1 + e^{-z}}
+
+2. **Affine Transform:**
+   Maps \(x \in (0, 1)\) to \([\text{low}, \text{high}]\):
+   
+   .. math::
+      y = \text{low} + (\text{high} - \text{low}) \cdot x
+
+So, a sample \(z\) from the base distribution is transformed as:
+
+.. math::
+   y = \text{low} + (\text{high} - \text{low}) \cdot \sigma(z)
+
+The probability density is adjusted using the change-of-variables formula, ensuring the resulting distribution is properly normalized over the Box bounds.
+
 Usage Examples
 --------------
 
