@@ -36,19 +36,19 @@ The ``BoxDist`` distribution is constructed by transforming a base Normal distri
    The base distribution is a Normal (Gaussian) distribution on :math:`\mathbb{R}`. The user must provide the parameters:
    - ``loc``: the mean of the Normal distribution
    - ``scale``: the standard deviation of the Normal distribution
-   
+
    .. note::
       Here, :math:`z` is sampled from :math:`\mathcal{N}(\text{loc},\ \text{scale})`, i.e., :math:`z \sim \mathcal{N}(\text{loc},\ \text{scale})`.
 
 2. **Sigmoid Transform:**
    Maps :math:`z \in \mathbb{R}` to :math:`(0, 1)` via the sigmoid function:
-   
+
    .. math::
       x = \sigma(z) = \frac{1}{1 + e^{-z}}
 
 3. **Affine Transform:**
    Maps :math:`x \in (0, 1)` to :math:`[\mathrm{low},\ \mathrm{high}]`:
-   
+
    .. math::
       y = \mathrm{low} + (\mathrm{high} - \mathrm{low}) \cdot x
 
