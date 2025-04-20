@@ -1,17 +1,21 @@
+"""Module for probability distributions over Dict spaces."""
+
 from gymnasium import spaces
 
 
 class DictDist(spaces.Dict):
+    """Probability distribution for Dict spaces."""
+
     def __call__(self, prob: dict, mask: dict = None) -> dict:
-        """
-        Create a dict of distributions based on input probabilities.
+        """Create a dict of distributions based on input probabilities.
 
         Args:
-            prob: Dictionary of probability tensors for each space
-            mask: Optional dictionary of masks for each space
+            prob: Dictionary of probability tensors for each space.
+            mask: Optional dictionary of masks for each space.
 
         Returns:
-            Dictionary of distribution objects
+            Dictionary of distribution objects.
+
         """
         dist_dict = {}
         mask = mask or {}

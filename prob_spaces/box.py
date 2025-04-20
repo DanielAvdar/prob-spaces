@@ -1,3 +1,5 @@
+"""Module for probability distributions over Box spaces."""
+
 from typing import Any, Sequence, SupportsFloat, Type
 
 import numpy as np
@@ -9,6 +11,8 @@ from torch.distributions.transforms import AffineTransform, SigmoidTransform
 
 
 class BoxDist(spaces.Box):
+    """Probability distribution for Box spaces."""
+
     def __init__(
         self,
         low: SupportsFloat | NDArray[Any],
@@ -18,10 +22,12 @@ class BoxDist(spaces.Box):
         seed: int | np.random.Generator | None = None,
         dist: None | Type[th.distributions.Distribution] = None,
     ):
+        """Initialize BoxDist with bounds, shape, dtype, and base distribution."""
         super().__init__(low, high, shape, dtype, seed)
         self.base_dist = dist or th.distributions.Normal
 
     def transforms(self, device: th.device) -> list:
+        """Return list of transforms to map base distribution to Box bounds."""
         t_low = th.tensor(self.low, device=device)
         t_high = th.tensor(self.high, device=device)
         range_value = t_high - t_low
@@ -33,16 +39,15 @@ class BoxDist(spaces.Box):
         return transforms
 
     def __call__(self, loc: th.Tensor, scale: th.Tensor) -> th.distributions.Distribution:
-        """
-        Generates a transformed probability distribution based on the input location and scale
-        parameters. The method constructs a base distribution, applies a sequence of
-        transformations to it, and returns the resulting transformed distribution. This
-        allows for creating flexible and expressive probability distributions.
+        """Generate a transformed probability distribution.
+
+        Construct a base distribution, apply a sequence of transformations, and return the resulting
+        transformed distribution.
 
         :param loc: A tensor specifying the location parameters for the base distribution.
         :param scale: A tensor specifying the scale parameters for the base distribution.
-        :return: A transformed distribution object derived from the specified base distribution
-            and transformations.
+        :return: A transformed distribution object derived from the specified base distribution and
+            transformations.
         """
         dist = self.base_dist(loc, scale, validate_args=True)  # type: ignore
         transforms = self.transforms(loc.device)
@@ -51,6 +56,7 @@ class BoxDist(spaces.Box):
 
     @classmethod
     def from_space(cls, space: spaces.Box) -> "BoxDist":
+        """Create a BoxDist from a gymnasium Box space."""
         low = space.low
         high = space.high
         dtype = space.dtype

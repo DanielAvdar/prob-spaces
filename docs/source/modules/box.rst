@@ -27,6 +27,38 @@ Key Features
 * Built-in transformation to enforce bounds using sigmoid and affine transforms
 * Customizable base distribution (defaults to Normal)
 
+Mathematical Details
+-------------------
+
+The ``BoxDist`` distribution is constructed by transforming a base Normal distribution on :math:`\mathbb{R}` to the bounded Box interval :math:`[\mathrm{low},\ \mathrm{high}]` using three steps:
+
+1. **Normal Distribution (Base):**
+   The base distribution is a Normal (Gaussian) distribution on :math:`\mathbb{R}`. The user must provide the parameters:
+   - ``loc``: the mean of the Normal distribution
+   - ``scale``: the standard deviation of the Normal distribution
+
+   .. note::
+      Here, :math:`z` is sampled from :math:`\mathcal{N}(\text{loc},\ \text{scale})`, i.e., :math:`z \sim \mathcal{N}(\text{loc},\ \text{scale})`.
+
+2. **Sigmoid Transform:**
+   Maps :math:`z \in \mathbb{R}` to :math:`(0, 1)` via the sigmoid function:
+
+   .. math::
+      x = \sigma(z) = \frac{1}{1 + e^{-z}}
+
+3. **Affine Transform:**
+   Maps :math:`x \in (0, 1)` to :math:`[\mathrm{low},\ \mathrm{high}]`:
+
+   .. math::
+      y = \mathrm{low} + (\mathrm{high} - \mathrm{low}) \cdot x
+
+So, a sample :math:`z` from the base distribution is transformed as:
+
+.. math::
+   y = \mathrm{low} + (\mathrm{high} - \mathrm{low}) \cdot \sigma(z)
+
+The probability density is adjusted using the change-of-variables formula, ensuring the resulting distribution is properly normalized over the Box bounds.
+
 Usage Examples
 --------------
 

@@ -37,7 +37,7 @@ url = "https://download.pytorch.org/whl/cu124"
 explicit = true
 [tool.uv.sources]
 torch = [
-  { index = "pytorch-cu124", marker = "platform_system != 'Darwin'"},
+    { index = "pytorch-cu124", marker = "platform_system != 'Darwin'" },
 ]
 
 [install]
@@ -53,7 +53,6 @@ dev = [
     "mypy==1.13.0",
     "pytest-parametrization>=2022",
     "ruff>=0.8.2",
-
     "scipy",
     "gymnasium[all]",
     "pygame",
@@ -61,9 +60,7 @@ dev = [
     "shimmy[gym-v26]",
     "pettingzoo",
     "chess",
-
     "luxai-s3",
-
 ]
 docs = [
     "sybil[pytest]",
@@ -96,10 +93,12 @@ line-length = 120
 include = ["pyproject.toml", "tests/**", ]
 
 [tool.ruff.lint]
-select = ["F", "B", "I", "F", "W", "E", "A", "N"]
+select = ["F", "B", "I", "F", "W", "E", "A", "N", "D"]
 
 fixable = ["ALL"]
-
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D"]
+"docs/*" = ["D"]
 [tool.ruff.lint.isort]
 combine-as-imports = true
 [tool.mypy]

@@ -1,10 +1,13 @@
+"""Module for probability distributions over Tuple spaces."""
+
 from gymnasium import spaces
 
 
 class TupleDist(spaces.Tuple):
+    """Probability distribution for Tuple spaces."""
+
     def __call__(self, prob: tuple, mask: tuple = None) -> tuple:
-        """
-        Create a tuple of distributions based on input probabilities.
+        """Create a tuple of distributions based on input probabilities.
 
         Args:
             prob: Tuple of probability tensors for each space.
@@ -12,6 +15,7 @@ class TupleDist(spaces.Tuple):
 
         Returns:
             Tuple of distribution objects.
+
         """
         dist_list = []
         mask = mask or (None,) * len(self.spaces)
