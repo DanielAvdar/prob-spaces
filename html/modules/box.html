@@ -6,16 +6,17 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Box Space &mdash; prob-spaces 0.0.0.post1.dev0+8503782 documentation</title>
+  <title>Box Space &mdash; prob-spaces 0.0.0.post1.dev0+9ac8ed5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=cf684b77"></script>
+      <script src="../_static/documentation_options.js?v=208414af"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -62,6 +63,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#key-features">Key Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mathematical-details">Mathematical Details</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#usage-examples">Usage Examples</a></li>
 </ul>
 </li>
@@ -143,6 +145,35 @@ transformations.</p>
 <li><p>Built-in transformation to enforce bounds using sigmoid and affine transforms</p></li>
 <li><p>Customizable base distribution (defaults to Normal)</p></li>
 </ul>
+</section>
+<section id="mathematical-details">
+<h2>Mathematical Details<a class="headerlink" href="#mathematical-details" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">BoxDist</span></code> distribution is constructed by transforming a base Normal distribution on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> to the bounded Box interval <span class="math notranslate nohighlight">\([\mathrm{low},\ \mathrm{high}]\)</span> using three steps:</p>
+<ol class="arabic">
+<li><p><strong>Normal Distribution (Base):</strong>
+The base distribution is a Normal (Gaussian) distribution on <span class="math notranslate nohighlight">\(\mathbb{R}\)</span>. The user must provide the parameters:
+- <code class="docutils literal notranslate"><span class="pre">loc</span></code>: the mean of the Normal distribution
+- <code class="docutils literal notranslate"><span class="pre">scale</span></code>: the standard deviation of the Normal distribution</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Here, <span class="math notranslate nohighlight">\(z\)</span> is sampled from <span class="math notranslate nohighlight">\(\mathcal{N}(\text{loc},\ \text{scale})\)</span>, i.e., <span class="math notranslate nohighlight">\(z \sim \mathcal{N}(\text{loc},\ \text{scale})\)</span>.</p>
+</div>
+</li>
+<li><p><strong>Sigmoid Transform:</strong>
+Maps <span class="math notranslate nohighlight">\(z \in \mathbb{R}\)</span> to <span class="math notranslate nohighlight">\((0, 1)\)</span> via the sigmoid function:</p>
+<div class="math notranslate nohighlight">
+\[x = \sigma(z) = \frac{1}{1 + e^{-z}}\]</div>
+</li>
+<li><p><strong>Affine Transform:</strong>
+Maps <span class="math notranslate nohighlight">\(x \in (0, 1)\)</span> to <span class="math notranslate nohighlight">\([\mathrm{low},\ \mathrm{high}]\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[y = \mathrm{low} + (\mathrm{high} - \mathrm{low}) \cdot x\]</div>
+</li>
+</ol>
+<p>So, a sample <span class="math notranslate nohighlight">\(z\)</span> from the base distribution is transformed as:</p>
+<div class="math notranslate nohighlight">
+\[y = \mathrm{low} + (\mathrm{high} - \mathrm{low}) \cdot \sigma(z)\]</div>
+<p>The probability density is adjusted using the change-of-variables formula, ensuring the resulting distribution is properly normalized over the Box bounds.</p>
 </section>
 <section id="usage-examples">
 <h2>Usage Examples<a class="headerlink" href="#usage-examples" title="Link to this heading"></a></h2>
