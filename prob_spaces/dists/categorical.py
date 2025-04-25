@@ -36,7 +36,14 @@ class CategoricalDist(MaskedCategorical):
         self,
         sample_shape: Optional[Union[th.Size, Sequence[int]]] = None,
     ) -> th.Tensor:
-        """Sample from the categorical distribution with start offset."""
+        """Sample from the categorical distribution with start offset.
+
+        Returns
+        -------
+        th.Tensor
+            A tensor containing samples from the categorical distribution, adjusted by the start offset.
+
+        """
         sample = super().sample(sample_shape)
         exact_sample = self._calc_exact(sample, sample_shape)
         return exact_sample
@@ -46,7 +53,14 @@ class CategoricalDist(MaskedCategorical):
         sample: th.Tensor,
         sample_shape: Optional[Union[th.Size, Sequence[int]]],
     ) -> th.Tensor:
-        """Calculate the exact sample with start offset."""
+        """Calculate the exact sample with start offset.
+
+        Returns
+        -------
+        th.Tensor
+            The exact sample tensor, adjusted by the start offset.
+
+        """
         if not isinstance(self.start, np.ndarray) or sum(self.start.shape) == 1:
             exact_sample = sample + self.start  # type: ignore
         else:
@@ -55,5 +69,12 @@ class CategoricalDist(MaskedCategorical):
         return exact_sample  # type: ignore
 
     def log_prob(self, value: torch.Tensor) -> torch.Tensor:
-        """Compute the log probability of a value, accounting for start offset."""
+        """Compute the log probability of a value, accounting for start offset.
+
+        Returns
+        -------
+        torch.Tensor
+            The log probability tensor, accounting for the start offset.
+
+        """
         return super().log_prob(value=value - self.th_start)
