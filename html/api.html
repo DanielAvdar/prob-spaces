@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>API Reference &mdash; prob-spaces 0.0.0.post1.dev0+a280d26 documentation</title>
+  <title>API Reference &mdash; prob-spaces 0.0.0.post1.dev0+91cf2a7 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=cdc0ffd3"></script>
+      <script src="_static/documentation_options.js?v=8de266b4"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -109,6 +109,14 @@
 <dt class="sig sig-object py">
 <em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Discrete</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="modules/discrete.html#prob_spaces.discrete.DiscreteDist" title="prob_spaces.discrete.DiscreteDist"><span class="pre">DiscreteDist</span></a></span></span><a class="reference internal" href="_modules/prob_spaces/discrete.html#DiscreteDist.from_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Create a DiscreteDist from a gymnasium Discrete space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An instance of DiscreteDist created from the given gymnasium Discrete space.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="modules/discrete.html#prob_spaces.discrete.DiscreteDist" title="prob_spaces.discrete.DiscreteDist">DiscreteDist</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -121,6 +129,14 @@
 <dt class="sig sig-object py">
 <em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">space</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MultiDiscrete</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="modules/multi_discrete.html#prob_spaces.multi_discrete.MultiDiscreteDist" title="prob_spaces.multi_discrete.MultiDiscreteDist"><span class="pre">MultiDiscreteDist</span></a></span></span><a class="reference internal" href="_modules/prob_spaces/multi_discrete.html#MultiDiscreteDist.from_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Create a MultiDiscreteDist from a gymnasium MultiDiscrete space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An instance of MultiDiscreteDist created from the given gymnasium MultiDiscrete space.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="modules/multi_discrete.html#prob_spaces.multi_discrete.MultiDiscreteDist" title="prob_spaces.multi_discrete.MultiDiscreteDist">MultiDiscreteDist</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -151,6 +167,12 @@ probability distribution space.</p>
 <dd class="field-odd"><p>The corresponding probability distribution space created based on the input action space
 type.</p>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The corresponding probability distribution space created based on the input action space type.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DistSpaces</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -178,6 +200,12 @@ probability distribution space.</p>
 <dd class="field-odd"><p>The corresponding probability distribution space created based on the input action space
 type.</p>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The corresponding probability distribution space created based on the input action space type.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>DistSpaces</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -194,12 +222,28 @@ type.</p>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">log_prob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="reference internal" href="_modules/prob_spaces/dists/categorical.html#CategoricalDist.log_prob"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Compute the log probability of a value, accounting for start offset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The log probability tensor, accounting for the start offset.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.Tensor</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Size</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="reference internal" href="_modules/prob_spaces/dists/categorical.html#CategoricalDist.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Sample from the categorical distribution with start offset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tensor containing samples from the categorical distribution, adjusted by the start offset.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>th.Tensor</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">

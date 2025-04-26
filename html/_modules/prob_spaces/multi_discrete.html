@@ -5,14 +5,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>prob_spaces.multi_discrete &mdash; prob-spaces 0.0.0.post1.dev0+a280d26 documentation</title>
+  <title>prob_spaces.multi_discrete &mdash; prob-spaces 0.0.0.post1.dev0+91cf2a7 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=cdc0ffd3"></script>
+      <script src="../../_static/documentation_options.js?v=8de266b4"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -117,7 +117,14 @@
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nvec</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_internal_mask</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return internal mask for valid actions in MultiDiscrete space.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return internal mask for valid actions in MultiDiscrete space.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        NDArray[np.bool_]</span>
+<span class="sd">            Internal mask array indicating valid actions in the MultiDiscrete space.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">prob_last_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_last_dim</span>
         <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">nvec</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_last_dim</span><span class="p">)</span>
         <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
@@ -147,6 +154,13 @@
 <span class="sd">        :return: A `MaskedCategorical` distribution object created with reshaped probabilities and</span>
 <span class="sd">            combined masking information.</span>
 <span class="sd">        :rtype: MaskedCategorical</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        MaskedCategorical</span>
+<span class="sd">            A `MaskedCategorical` distribution object created with reshaped probabilities and</span>
+<span class="sd">            combined masking information.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">probs</span> <span class="o">=</span> <span class="n">prob</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">nvec</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_last_dim</span><span class="p">)</span>
         <span class="n">start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
@@ -160,7 +174,14 @@
 <a class="viewcode-back" href="../../api.html#prob_spaces.MultiDiscreteDist.from_space">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_space</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">space</span><span class="p">:</span> <span class="n">spaces</span><span class="o">.</span><span class="n">MultiDiscrete</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;MultiDiscreteDist&quot;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a MultiDiscreteDist from a gymnasium MultiDiscrete space.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a MultiDiscreteDist from a gymnasium MultiDiscrete space.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        MultiDiscreteDist</span>
+<span class="sd">            An instance of MultiDiscreteDist created from the given gymnasium MultiDiscrete space.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">nvec</span><span class="o">=</span><span class="n">space</span><span class="o">.</span><span class="n">nvec</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">space</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">space</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>  <span class="c1"># type: ignore</span></div>
 </div>
 
