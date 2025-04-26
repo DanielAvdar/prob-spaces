@@ -30,7 +30,14 @@ class MultiDiscreteDist(spaces.MultiDiscrete):
         return int(np.max(self.nvec)) + 1
 
     def _internal_mask(self) -> NDArray[np.bool_]:
-        """Return internal mask for valid actions in MultiDiscrete space."""
+        """Return internal mask for valid actions in MultiDiscrete space.
+
+        Returns
+        -------
+        NDArray[np.bool_]
+            Internal mask array indicating valid actions in the MultiDiscrete space.
+
+        """
         prob_last_dim = self.prob_last_dim
         shape = (*self.nvec.shape, self.prob_last_dim)
         mask = np.zeros(shape=shape, dtype=np.bool)
@@ -58,6 +65,13 @@ class MultiDiscreteDist(spaces.MultiDiscrete):
         :return: A `MaskedCategorical` distribution object created with reshaped probabilities and
             combined masking information.
         :rtype: MaskedCategorical
+
+        Returns
+        -------
+        MaskedCategorical
+            A `MaskedCategorical` distribution object created with reshaped probabilities and
+            combined masking information.
+
         """
         probs = prob.reshape(*self.nvec.shape, self.prob_last_dim)
         start = self.start
@@ -68,5 +82,12 @@ class MultiDiscreteDist(spaces.MultiDiscrete):
 
     @classmethod
     def from_space(cls, space: spaces.MultiDiscrete) -> "MultiDiscreteDist":
-        """Create a MultiDiscreteDist from a gymnasium MultiDiscrete space."""
+        """Create a MultiDiscreteDist from a gymnasium MultiDiscrete space.
+
+        Returns
+        -------
+        MultiDiscreteDist
+            An instance of MultiDiscreteDist created from the given gymnasium MultiDiscrete space.
+
+        """
         return cls(nvec=space.nvec, dtype=space.dtype, start=space.start)  # type: ignore

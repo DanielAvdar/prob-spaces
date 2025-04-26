@@ -26,6 +26,12 @@ def convert_to_prob_space(action_space: Spaces) -> DistSpaces:
     :raises NotImplementedError: If the input action space type is not supported.
     :return: The corresponding probability distribution space created based on the input action space
         type.
+
+    Returns
+    -------
+    DistSpaces
+        The corresponding probability distribution space created based on the input action space type.
+
     """
     if isinstance(action_space, gym.spaces.MultiDiscrete):
         space_dist = MultiDiscreteDist.from_space(action_space)

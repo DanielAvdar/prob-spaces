@@ -21,6 +21,12 @@ class DiscreteDist(spaces.Discrete):
             of ones if not provided.
         :return: A MaskedCategorical distribution constructed with given probabilities, mask, and
             starting values.
+
+        Returns
+        -------
+        MaskedCategorical
+            A MaskedCategorical distribution constructed with given probabilities, mask, and starting values.
+
         """
         probs = prob.reshape(self.n)  # type: ignore
         start = self.start
@@ -30,7 +36,14 @@ class DiscreteDist(spaces.Discrete):
 
     @classmethod
     def from_space(cls, space: spaces.Discrete) -> "DiscreteDist":
-        """Create a DiscreteDist from a gymnasium Discrete space."""
+        """Create a DiscreteDist from a gymnasium Discrete space.
+
+        Returns
+        -------
+        DiscreteDist
+            An instance of DiscreteDist created from the given gymnasium Discrete space.
+
+        """
         return cls(
             n=space.n,
             start=space.start,

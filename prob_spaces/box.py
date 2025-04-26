@@ -27,7 +27,14 @@ class BoxDist(spaces.Box):
         self.base_dist = dist or th.distributions.Normal
 
     def transforms(self, device: th.device) -> list:
-        """Return list of transforms to map base distribution to Box bounds."""
+        """Return list of transforms to map base distribution to Box bounds.
+
+        Returns
+        -------
+        list
+            List of transforms to map the base distribution to Box bounds.
+
+        """
         t_low = th.tensor(self.low, device=device)
         t_high = th.tensor(self.high, device=device)
         range_value = t_high - t_low
@@ -48,6 +55,12 @@ class BoxDist(spaces.Box):
         :param scale: A tensor specifying the scale parameters for the base distribution.
         :return: A transformed distribution object derived from the specified base distribution and
             transformations.
+
+        Returns
+        -------
+        th.distributions.Distribution
+            A transformed distribution object derived from the specified base distribution and transformations.
+
         """
         dist = self.base_dist(loc, scale, validate_args=True)  # type: ignore
         transforms = self.transforms(loc.device)
@@ -56,7 +69,14 @@ class BoxDist(spaces.Box):
 
     @classmethod
     def from_space(cls, space: spaces.Box) -> "BoxDist":
-        """Create a BoxDist from a gymnasium Box space."""
+        """Create a BoxDist from a gymnasium Box space.
+
+        Returns
+        -------
+        BoxDist
+            An instance of BoxDist created from the given gymnasium Box space.
+
+        """
         low = space.low
         high = space.high
         dtype = space.dtype
