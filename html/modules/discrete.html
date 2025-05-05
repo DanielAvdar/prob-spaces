@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Discrete Space &mdash; prob-spaces 0.0.0.post1.dev0+ba9e8fe documentation</title>
+  <title>Discrete Space &mdash; prob-spaces 0.0.0.post1.dev0+3d9a23c documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=3910b385"></script>
+      <script src="../_static/documentation_options.js?v=c5c4291f"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -59,6 +59,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#detailed-descriptions">Detailed Descriptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#usage-examples">Usage Examples</a></li>
 </ul>
 </li>
@@ -141,6 +142,76 @@ starting values.</p>
 
 </dd></dl>
 
+</section>
+<section id="detailed-descriptions">
+<h2>Detailed Descriptions<a class="headerlink" href="#detailed-descriptions" title="Link to this heading"></a></h2>
+<p>The <cite>DiscreteDist</cite> class includes the following key methods:</p>
+<p>### __init__</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
+def __init__(self, n: int, start: int = 0):</p>
+<blockquote>
+<div><p>“””
+Initialize DiscreteDist with the number of categories and an optional start offset.</p>
+<dl class="simple">
+<dt>n<span class="classifier">int</span></dt><dd><p>The number of categories in the discrete space.</p>
+</dd>
+<dt>start<span class="classifier">int, optional</span></dt><dd><p>The starting offset for the categories. Defaults to 0.</p>
+</dd>
+</dl>
+<p>None
+“””</p>
+</div></blockquote>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<p>### __call__</p>
+<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>python
+def __call__(self, prob: th.Tensor, mask: th.Tensor = None) -&gt; MaskedCategorical:</p>
+<blockquote>
+<div><p>“””
+Compute and return a masked categorical distribution.</p>
+<p>Compute a masked categorical distribution based on the given probability tensor and an
+optional mask. The distribution incorporates specific probabilities and constraints defined
+by the provided input.</p>
+<dl class="simple">
+<dt>prob<span class="classifier">th.Tensor</span></dt><dd><p>A tensor representing the probabilities for each category.</p>
+</dd>
+<dt>mask<span class="classifier">th.Tensor, optional</span></dt><dd><p>A tensor specifying a mask to limit the valid categories. Defaults to a tensor
+of ones if not provided.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>MaskedCategorical</dt><dd><p>A MaskedCategorical distribution constructed with given probabilities, mask, and
+starting values.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If the <cite>prob</cite> tensor does not match the expected shape.</p>
+</dd>
+</dl>
+<p>“””</p>
+</div></blockquote>
+<p><a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
+<p>### from_space</p>
+<p><a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a>python
+&#64;classmethod
+def from_space(cls, space: spaces.Discrete) -&gt; “DiscreteDist”:</p>
+<blockquote>
+<div><p>“””
+Create a DiscreteDist from a gymnasium Discrete space.</p>
+<dl class="simple">
+<dt>space<span class="classifier">spaces.Discrete</span></dt><dd><p>The gymnasium Discrete space to convert.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>DiscreteDist</dt><dd><p>An instance of DiscreteDist created from the given gymnasium Discrete space.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>TypeError</dt><dd><p>If the input space is not a valid gymnasium Discrete space.</p>
+</dd>
+</dl>
+<p>“””</p>
+</div></blockquote>
+<p><a href="#id21"><span class="problematic" id="id22">``</span></a><a href="#id23"><span class="problematic" id="id24">`</span></a></p>
 </section>
 <section id="usage-examples">
 <h2>Usage Examples<a class="headerlink" href="#usage-examples" title="Link to this heading"></a></h2>
