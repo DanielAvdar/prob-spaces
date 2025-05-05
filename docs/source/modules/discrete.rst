@@ -19,6 +19,88 @@ API Reference
    :undoc-members:
    :show-inheritance:
 
+Detailed Descriptions
+---------------------
+
+The `DiscreteDist` class includes the following key methods:
+
+### __init__
+
+```python
+def __init__(self, n: int, start: int = 0):
+    """
+    Initialize DiscreteDist with the number of categories and an optional start offset.
+
+    Parameters
+    ----------
+    n : int
+        The number of categories in the discrete space.
+    start : int, optional
+        The starting offset for the categories. Defaults to 0.
+
+    Returns
+    -------
+    None
+    """
+```
+
+### __call__
+
+```python
+def __call__(self, prob: th.Tensor, mask: th.Tensor = None) -> MaskedCategorical:
+    """
+    Compute and return a masked categorical distribution.
+
+    Compute a masked categorical distribution based on the given probability tensor and an
+    optional mask. The distribution incorporates specific probabilities and constraints defined
+    by the provided input.
+
+    Parameters
+    ----------
+    prob : th.Tensor
+        A tensor representing the probabilities for each category.
+    mask : th.Tensor, optional
+        A tensor specifying a mask to limit the valid categories. Defaults to a tensor
+        of ones if not provided.
+
+    Returns
+    -------
+    MaskedCategorical
+        A MaskedCategorical distribution constructed with given probabilities, mask, and
+        starting values.
+
+    Raises
+    ------
+    ValueError
+        If the `prob` tensor does not match the expected shape.
+    """
+```
+
+### from_space
+
+```python
+@classmethod
+def from_space(cls, space: spaces.Discrete) -> "DiscreteDist":
+    """
+    Create a DiscreteDist from a gymnasium Discrete space.
+
+    Parameters
+    ----------
+    space : spaces.Discrete
+        The gymnasium Discrete space to convert.
+
+    Returns
+    -------
+    DiscreteDist
+        An instance of DiscreteDist created from the given gymnasium Discrete space.
+
+    Raises
+    ------
+    TypeError
+        If the input space is not a valid gymnasium Discrete space.
+    """
+```
+
 Usage Examples
 --------------
 

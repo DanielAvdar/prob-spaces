@@ -30,3 +30,8 @@ Distributions
 .. automodule:: prob_spaces.dists.categorical
    :members:
    :no-index:
+
+Classes and Functions
+---------------------
+
+BoxDist
