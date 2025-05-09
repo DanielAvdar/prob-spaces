@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MultiDiscrete Space &mdash; prob-spaces 0.0.0.post1.dev0+3d9a23c documentation</title>
+  <title>MultiDiscrete Space &mdash; prob-spaces 0.0.0.post1.dev0+da9018d documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=c5c4291f"></script>
+      <script src="../_static/documentation_options.js?v=c5c9bb56"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -61,7 +61,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#key-attributes">Key Attributes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#detailed-descriptions">Detailed Descriptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#usage-examples">Usage Examples</a></li>
 </ul>
 </li>
@@ -156,88 +155,6 @@ combined masking information.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">start</span></code>: Optional starting indices for each variable</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">internal_mask</span></code>: Automatically generated mask to ensure valid actions</p></li>
 </ul>
-</section>
-<section id="detailed-descriptions">
-<h2>Detailed Descriptions<a class="headerlink" href="#detailed-descriptions" title="Link to this heading"></a></h2>
-<p>The <cite>MultiDiscreteDist</cite> class includes the following key methods:</p>
-<p>### __init__</p>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
-def __init__(</p>
-<blockquote>
-<div><p>self,
-nvec: NDArray[np.integer[Any]] | list[int],
-dtype: str | type[np.integer[Any]] = np.int64,
-seed: int | np.random.Generator | None = None,
-start: NDArray[np.integer[Any]] | list[int] | None = None,</p>
-</div></blockquote>
-<dl>
-<dt>):</dt><dd><p>“””
-Initialize MultiDiscreteDist with nvec, dtype, seed, and start.</p>
-<dl class="simple">
-<dt>nvec<span class="classifier">NDArray[np.integer[Any]] | list[int]</span></dt><dd><p>Array of integers representing the number of values for each discrete variable.</p>
-</dd>
-<dt>dtype<span class="classifier">str | type[np.integer[Any]], optional</span></dt><dd><p>The data type of the MultiDiscrete space. Defaults to np.int64.</p>
-</dd>
-<dt>seed<span class="classifier">int | np.random.Generator | None, optional</span></dt><dd><p>The seed for random number generation. Defaults to None.</p>
-</dd>
-<dt>start<span class="classifier">NDArray[np.integer[Any]] | list[int] | None, optional</span></dt><dd><p>Optional starting indices for each variable. Defaults to None.</p>
-</dd>
-</dl>
-<p>None
-“””</p>
-</dd>
-</dl>
-<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
-<p>### __call__</p>
-<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>python
-def __call__(self, prob: th.Tensor, mask: th.Tensor = None) -&gt; MaskedCategorical:</p>
-<blockquote>
-<div><p>“””
-Apply a transformation to the input probability tensor and optional mask.</p>
-<p>Create a <cite>MaskedCategorical</cite> distribution by reshaping the input probabilities, applying an
-optional mask, and combining with an internal mask.</p>
-<dl class="simple">
-<dt>prob<span class="classifier">th.Tensor</span></dt><dd><p>A tensor containing probabilities to be reshaped and used in constructing the
-distribution.</p>
-</dd>
-<dt>mask<span class="classifier">th.Tensor, optional</span></dt><dd><p>An optional boolean tensor for masking specific probabilities before creating
-the distribution. Defaults to None.</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>MaskedCategorical</dt><dd><p>A <cite>MaskedCategorical</cite> distribution object created with reshaped probabilities and
-combined masking information.</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>ValueError</dt><dd><p>If the <cite>prob</cite> tensor does not match the expected shape.</p>
-</dd>
-</dl>
-<p>“””</p>
-</div></blockquote>
-<p><a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
-<p>### from_space</p>
-<p><a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a>python
-&#64;classmethod
-def from_space(cls, space: spaces.MultiDiscrete) -&gt; “MultiDiscreteDist”:</p>
-<blockquote>
-<div><p>“””
-Create a MultiDiscreteDist from a gymnasium MultiDiscrete space.</p>
-<dl class="simple">
-<dt>space<span class="classifier">spaces.MultiDiscrete</span></dt><dd><p>The gymnasium MultiDiscrete space to convert.</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>MultiDiscreteDist</dt><dd><p>An instance of MultiDiscreteDist created from the given gymnasium MultiDiscrete space.</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>TypeError</dt><dd><p>If the input space is not a valid gymnasium MultiDiscrete space.</p>
-</dd>
-</dl>
-<p>“””</p>
-</div></blockquote>
-<p><a href="#id21"><span class="problematic" id="id22">``</span></a><a href="#id23"><span class="problematic" id="id24">`</span></a></p>
 </section>
 <section id="usage-examples">
 <h2>Usage Examples<a class="headerlink" href="#usage-examples" title="Link to this heading"></a></h2>

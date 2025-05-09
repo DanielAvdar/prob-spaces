@@ -6,14 +6,14 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Space Converter &mdash; prob-spaces 0.0.0.post1.dev0+3d9a23c documentation</title>
+  <title>Space Converter &mdash; prob-spaces 0.0.0.post1.dev0+da9018d documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=c5c4291f"></script>
+      <script src="../_static/documentation_options.js?v=c5c9bb56"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -55,7 +55,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#prob_spaces.converter.convert_to_prob_space"><code class="docutils literal notranslate"><span class="pre">convert_to_prob_space()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#detailed-descriptions">Detailed Descriptions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#usage-examples">Usage Examples</a></li>
 </ul>
 </li>
@@ -133,36 +132,6 @@ type.</p>
 </dl>
 </dd></dl>
 
-</section>
-<section id="detailed-descriptions">
-<h2>Detailed Descriptions<a class="headerlink" href="#detailed-descriptions" title="Link to this heading"></a></h2>
-<p>The <cite>converter</cite> module includes the following key function:</p>
-<p>### convert_to_prob_space</p>
-<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
-def convert_to_prob_space(action_space: Spaces) -&gt; DistSpaces:</p>
-<blockquote>
-<div><p>“””
-Convert an action space into its corresponding probability distribution space.</p>
-<p>This function supports different types of action spaces and creates an appropriate distribution
-space for each one. Supported action spaces include <cite>MultiDiscrete</cite>, <cite>Discrete</cite>, <cite>Box</cite>, and
-<cite>Dict</cite>. For <cite>Dict</cite> action spaces, the function recursively converts each subspace into its
-probability distribution space.</p>
-<dl class="simple">
-<dt>action_space<span class="classifier">Spaces</span></dt><dd><p>The input action space to be converted. This can be an instance of
-<cite>gym.spaces.MultiDiscrete</cite>, <cite>gym.spaces.Discrete</cite>, <cite>gym.spaces.Box</cite>, or <cite>gym.spaces.Dict</cite>.</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>DistSpaces</dt><dd><p>The corresponding probability distribution space created based on the input action space type.</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>NotImplementedError</dt><dd><p>If the input action space type is not supported.</p>
-</dd>
-</dl>
-<p>“””</p>
-</div></blockquote>
-<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
 </section>
 <section id="usage-examples">
 <h2>Usage Examples<a class="headerlink" href="#usage-examples" title="Link to this heading"></a></h2>
