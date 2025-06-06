@@ -16,6 +16,41 @@ API Reference
 
 .. autofunction:: prob_spaces.converter.convert_to_prob_space
 
+Detailed Descriptions
+---------------------
+
+The `converter` module includes the following key function:
+
+### convert_to_prob_space
+
+```python
+def convert_to_prob_space(action_space: Spaces) -> DistSpaces:
+    """
+    Convert an action space into its corresponding probability distribution space.
+
+    This function supports different types of action spaces and creates an appropriate distribution
+    space for each one. Supported action spaces include `MultiDiscrete`, `Discrete`, `Box`, and
+    `Dict`. For `Dict` action spaces, the function recursively converts each subspace into its
+    probability distribution space.
+
+    Parameters
+    ----------
+    action_space : Spaces
+        The input action space to be converted. This can be an instance of
+        `gym.spaces.MultiDiscrete`, `gym.spaces.Discrete`, `gym.spaces.Box`, or `gym.spaces.Dict`.
+
+    Returns
+    -------
+    DistSpaces
+        The corresponding probability distribution space created based on the input action space type.
+
+    Raises
+    ------
+    NotImplementedError
+        If the input action space type is not supported.
+    """
+```
+
 Usage Examples
 --------------
 
