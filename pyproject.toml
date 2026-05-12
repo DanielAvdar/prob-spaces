@@ -46,7 +46,7 @@ prefer-binary = true
 [dependency-groups]
 dev = [
     "pytest>=7.1.2",
-    "hypothesis>=6.23.3",
+    "hypothesis>=6.152.6",
     "pre-commit>=2.20.0",
     "pre-commit-uv>=4",
     "pytest-cov>=4.0.0",
