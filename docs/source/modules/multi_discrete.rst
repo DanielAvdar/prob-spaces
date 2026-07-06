@@ -27,6 +27,98 @@ Key Attributes
 * ``start``: Optional starting indices for each variable
 * ``internal_mask``: Automatically generated mask to ensure valid actions
 
+Detailed Descriptions
+---------------------
+
+The `MultiDiscreteDist` class includes the following key methods:
+
+### __init__
+
+```python
+def __init__(
+    self,
+    nvec: NDArray[np.integer[Any]] | list[int],
+    dtype: str | type[np.integer[Any]] = np.int64,
+    seed: int | np.random.Generator | None = None,
+    start: NDArray[np.integer[Any]] | list[int] | None = None,
+):
+    """
+    Initialize MultiDiscreteDist with nvec, dtype, seed, and start.
+
+    Parameters
+    ----------
+    nvec : NDArray[np.integer[Any]] | list[int]
+        Array of integers representing the number of values for each discrete variable.
+    dtype : str | type[np.integer[Any]], optional
+        The data type of the MultiDiscrete space. Defaults to np.int64.
+    seed : int | np.random.Generator | None, optional
+        The seed for random number generation. Defaults to None.
+    start : NDArray[np.integer[Any]] | list[int] | None, optional
+        Optional starting indices for each variable. Defaults to None.
+
+    Returns
+    -------
+    None
+    """
+```
+
+### __call__
+
+```python
+def __call__(self, prob: th.Tensor, mask: th.Tensor = None) -> MaskedCategorical:
+    """
+    Apply a transformation to the input probability tensor and optional mask.
+
+    Create a `MaskedCategorical` distribution by reshaping the input probabilities, applying an
+    optional mask, and combining with an internal mask.
+
+    Parameters
+    ----------
+    prob : th.Tensor
+        A tensor containing probabilities to be reshaped and used in constructing the
+        distribution.
+    mask : th.Tensor, optional
+        An optional boolean tensor for masking specific probabilities before creating
+        the distribution. Defaults to None.
+
+    Returns
+    -------
+    MaskedCategorical
+        A `MaskedCategorical` distribution object created with reshaped probabilities and
+        combined masking information.
+
+    Raises
+    ------
+    ValueError
+        If the `prob` tensor does not match the expected shape.
+    """
+```
+
+### from_space
+
+```python
+@classmethod
+def from_space(cls, space: spaces.MultiDiscrete) -> "MultiDiscreteDist":
+    """
+    Create a MultiDiscreteDist from a gymnasium MultiDiscrete space.
+
+    Parameters
+    ----------
+    space : spaces.MultiDiscrete
+        The gymnasium MultiDiscrete space to convert.
+
+    Returns
+    -------
+    MultiDiscreteDist
+        An instance of MultiDiscreteDist created from the given gymnasium MultiDiscrete space.
+
+    Raises
+    ------
+    TypeError
+        If the input space is not a valid gymnasium MultiDiscrete space.
+    """
+```
+
 Usage Examples
 --------------
 
